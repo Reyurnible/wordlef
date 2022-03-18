@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:wordlef/components/play/Keyboard.dart';
 
 import 'components/play/WordRow.dart';
 
@@ -81,6 +82,7 @@ class _PlayPageState extends State<PlayPage> {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
+            Spacer(flex: 1),
             // Six tiles
             Column(
               mainAxisAlignment: MainAxisAlignment.center,
@@ -94,12 +96,10 @@ class _PlayPageState extends State<PlayPage> {
                 WordRow(),
               ],
             ),
+            Spacer(flex: 1),
             // Keyboard
-            Column(
-              children: [
-
-              ],
-            )
+            Keyboard(),
+            Spacer(flex: 1),
           ],
         ),
       ),
