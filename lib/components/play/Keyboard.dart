@@ -35,6 +35,16 @@ class Keyboard extends StatelessWidget {
     Letter.M,
   ];
 
+  Keyboard({
+    required this.onLetterPressed,
+    required this.onEnterPressed,
+    required this.onDeletePressed
+  });
+
+  final LetterKeyItemClickCallback onLetterPressed;
+  final VoidCallback onEnterPressed;
+  final VoidCallback onDeletePressed;
+
   @override
   Widget build(BuildContext context) {
     final List<Widget> bottomItems = [];
