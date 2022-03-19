@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:wordlef/domain/Letter.dart';
+import 'package:wordlef/domain/letter.dart';
 
 class Keyboard extends StatelessWidget {
   final List<Letter> topKeyboardItems = [
@@ -36,10 +36,11 @@ class Keyboard extends StatelessWidget {
   ];
 
   Keyboard({
+    Key? key,
     required this.onLetterPressed,
     required this.onEnterPressed,
     required this.onDeletePressed,
-  });
+  }) : super(key: key);
 
   final LetterKeyItemClickCallback onLetterPressed;
   final VoidCallback onEnterPressed;
@@ -48,10 +49,10 @@ class Keyboard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final List<Widget> bottomItems = [];
-    bottomItems.add(EnterKeyItem(onEnterPressed));
+    bottomItems.add(EnterKeyItem(onPressed: onEnterPressed));
     bottomItems.addAll(bottomKeyboardItems
         .map((l) => LetterKeyItem(l, onPressed: onLetterPressed)));
-    bottomItems.add(DeleteKeyItem(onDeletePressed));
+    bottomItems.add(DeleteKeyItem(onPressed: onDeletePressed));
 
     return Column(
         mainAxisAlignment: MainAxisAlignment.center,
@@ -78,10 +79,11 @@ class Keyboard extends StatelessWidget {
 }
 
 class LetterKeyItem extends StatelessWidget {
-  LetterKeyItem(this.letter, {this.onPressed});
+  const LetterKeyItem(this.letter, {Key? key, required this.onPressed})
+      : super(key: key);
 
   final Letter letter;
-  final LetterKeyItemClickCallback? onPressed;
+  final LetterKeyItemClickCallback onPressed;
 
   @override
   Widget build(BuildContext context) {
@@ -90,69 +92,69 @@ class LetterKeyItem extends StatelessWidget {
           child: Text(letter.value),
           style: ButtonStyle(
               backgroundColor: MaterialStateProperty.all(Colors.grey),
-              minimumSize: MaterialStateProperty.all(Size(36, 48)),
-              fixedSize: MaterialStateProperty.all(Size(36, 48)),
+              minimumSize: MaterialStateProperty.all(const Size(36, 48)),
+              fixedSize: MaterialStateProperty.all(const Size(36, 48)),
               padding: MaterialStateProperty.all(EdgeInsets.zero),
               textStyle: MaterialStateProperty.all(
-                  TextStyle(fontSize: 14, fontWeight: FontWeight.w600))),
+                  const TextStyle(fontSize: 14, fontWeight: FontWeight.w600))),
           onPressed: () {
-            onPressed?.call(letter);
+            onPressed.call(letter);
           },
         ),
-        margin: EdgeInsets.all(2));
+        margin: const EdgeInsets.all(2));
   }
 }
 
 typedef LetterKeyItemClickCallback = void Function(Letter letter);
 
 class EnterKeyItem extends StatelessWidget {
-  EnterKeyItem(this.onPressed);
+  const EnterKeyItem({Key? key, required this.onPressed}) : super(key: key);
 
-  final VoidCallback? onPressed;
+  final VoidCallback onPressed;
 
   @override
   Widget build(BuildContext context) {
     return Container(
         child: ElevatedButton(
-          child: Text("ENTER"),
+          child: const Text("ENTER"),
           style: ButtonStyle(
             backgroundColor: MaterialStateProperty.all(Colors.grey),
-            minimumSize: MaterialStateProperty.all(Size(54, 48)),
-            fixedSize: MaterialStateProperty.all(Size(54, 48)),
+            minimumSize: MaterialStateProperty.all(const Size(54, 48)),
+            fixedSize: MaterialStateProperty.all(const Size(54, 48)),
             padding: MaterialStateProperty.all(EdgeInsets.zero),
             textStyle: MaterialStateProperty.all(
-                TextStyle(fontSize: 12, fontWeight: FontWeight.w600)),
+                const TextStyle(fontSize: 12, fontWeight: FontWeight.w600)),
           ),
           onPressed: () {
-            onPressed?.call();
+            onPressed.call();
           },
         ),
-        margin: EdgeInsets.all(2));
+        margin: const EdgeInsets.all(2));
   }
 }
 
 class DeleteKeyItem extends StatelessWidget {
-  DeleteKeyItem(this.onPressed);
+  const DeleteKeyItem({Key? key, required this.onPressed}) : super(key: key);
 
-  final VoidCallback? onPressed;
+  final VoidCallback onPressed;
 
   @override
   Widget build(BuildContext context) {
     return Container(
         child: ElevatedButton(
-          child: Text("DEL"),
+          child: const Text("DEL"),
           style: ButtonStyle(
             backgroundColor: MaterialStateProperty.all(Colors.grey),
-            minimumSize: MaterialStateProperty.all(Size(54, 48)),
-            fixedSize: MaterialStateProperty.all(Size(54, 48)),
+            minimumSize: MaterialStateProperty.all(const Size(54, 48)),
+            fixedSize: MaterialStateProperty.all(const Size(54, 48)),
             padding: MaterialStateProperty.all(EdgeInsets.zero),
             textStyle: MaterialStateProperty.all(
-                TextStyle(fontSize: 12, fontWeight: FontWeight.w600)),
+                const TextStyle(fontSize: 12, fontWeight: FontWeight.w600)),
           ),
           onPressed: () {
-            onPressed?.call();
+            onPressed.call();
           },
         ),
-        margin: EdgeInsets.all(2));
+        margin: const EdgeInsets.all(2));
   }
 }
