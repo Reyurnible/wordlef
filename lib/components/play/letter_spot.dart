@@ -6,7 +6,7 @@ class LetterSpot extends StatelessWidget {
     Key? key,
   }) : super(key: key);
 
-  final Letter letter;
+  final Letter? letter;
 
   @override
   Widget build(BuildContext context) {
@@ -19,7 +19,7 @@ class LetterSpot extends StatelessWidget {
         borderRadius: BorderRadius.zero,
       ),
       child: Center(
-          child: Text(letter.value,
+          child: Text(letter?.value ?? "",
             textAlign: TextAlign.center,
             style: const TextStyle(
                 fontSize: 24,

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:wordlef/components/play/keyboard.dart';
 import 'package:fluttertoast/fluttertoast.dart';
+import 'package:wordlef/domain/wordle_game.dart';
 
 import 'components/play/word_row.dart';
 import 'domain/letter.dart';
@@ -34,7 +35,8 @@ class PlayPage extends StatefulWidget {
 }
 
 class _PlayPageState extends State<PlayPage> {
-  
+  WordleGame _game = WordleGame();
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -54,13 +56,13 @@ class _PlayPageState extends State<PlayPage> {
             Column(
               mainAxisAlignment: MainAxisAlignment.center,
               mainAxisSize: MainAxisSize.min,
-              children: const [
-                WordRow(),
-                WordRow(),
-                WordRow(),
-                WordRow(),
-                WordRow(),
-                WordRow(),
+              children: [
+                WordRow(_game.board.getLineLetters(0)),
+                WordRow(_game.board.getLineLetters(1)),
+                WordRow(_game.board.getLineLetters(2)),
+                WordRow(_game.board.getLineLetters(3)),
+                WordRow(_game.board.getLineLetters(4)),
+                WordRow(_game.board.getLineLetters(5)),
               ],
             ),
             const Spacer(flex: 1),
@@ -79,22 +81,22 @@ class _PlayPageState extends State<PlayPage> {
 
   void onLetterKeyPressed(Letter letter) {
     debugPrint("Pressed: ${letter.value}");
-    Fluttertoast.showToast(
-        msg: "Pressed: ${letter.value}",
-    );
+    setState(() {
+      _game.onPressedLetter(letter);
+    });
   }
 
   void onEnterKeyPressed() {
     debugPrint("Pressed: Enter");
-    Fluttertoast.showToast(
-      msg: "Pressed: Enter",
-    );
+    setState(() {
+      _game.onPressedEnter();
+    });
   }
 
   void onDeleteKeyPressed() {
     debugPrint("Pressed: Delete");
-    Fluttertoast.showToast(
-      msg: "Pressed: Delete",
-    );
+    setState(() {
+      _game.onPressedDelete();
+    });
   }
 }
