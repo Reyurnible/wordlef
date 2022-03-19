@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:wordlef/domain/Letter.dart';
+import 'package:wordlef/domain/letter.dart';
 
 class LetterSpot extends StatelessWidget {
   LetterSpot(this.letter, {

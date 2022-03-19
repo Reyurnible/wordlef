@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:wordlef/components/play/Keyboard.dart';
+import 'package:wordlef/components/play/keyboard.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 
-import 'components/play/WordRow.dart';
-import 'domain/Letter.dart';
+import 'components/play/word_row.dart';
+import 'domain/letter.dart';
 
 void main() {
   runApp(MyApp());

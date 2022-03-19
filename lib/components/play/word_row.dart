@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:wordlef/domain/Letter.dart';
-import 'LetterSpot.dart';
+import 'package:wordlef/domain/letter.dart';
+import 'letter_spot.dart';
 
 class WordRow extends StatelessWidget {
   WordRow({
