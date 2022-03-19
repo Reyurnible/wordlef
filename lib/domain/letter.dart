@@ -32,3 +32,9 @@ extension LetterExt on Letter {
     return toString().split(".")[1];
   }
 }
+
+extension ListLetterExt on List<Letter> {
+  String get joinedValue {
+    return map((e) => e.value).join();
+  }
+}
