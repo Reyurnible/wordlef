@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:wordlef/domain/Letter.dart';
 import 'LetterSpot.dart';
 
 class WordRow extends StatelessWidget {
@@ -14,11 +15,11 @@ class WordRow extends StatelessWidget {
     return Row(
       mainAxisSize: MainAxisSize.min,
       children: [
-        LetterSpot("A"),
-        LetterSpot("B"),
-        LetterSpot("C"),
-        LetterSpot("D"),
-        LetterSpot("E"),
+        LetterSpot(Letter.A),
+        LetterSpot(Letter.B),
+        LetterSpot(Letter.C),
+        LetterSpot(Letter.D),
+        LetterSpot(Letter.E),
       ],
 
     );

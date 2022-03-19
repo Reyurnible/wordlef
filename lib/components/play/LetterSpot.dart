@@ -1,11 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:wordlef/domain/Letter.dart';
 
 class LetterSpot extends StatelessWidget {
   LetterSpot(this.letter, {
     Key? key,
   }) : super(key: key);
 
-  final String letter;
+  final Letter letter;
 
   @override
   Widget build(BuildContext context) {
@@ -18,7 +19,7 @@ class LetterSpot extends StatelessWidget {
         borderRadius: BorderRadius.zero,
       ),
       child: Center(
-          child: Text(letter,
+          child: Text(letter.value,
             textAlign: TextAlign.center,
             style: TextStyle(
                 fontSize: 24,
