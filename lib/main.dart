@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:wordlef/components/play/Keyboard.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 
 import 'components/play/WordRow.dart';
 import 'domain/Letter.dart';
@@ -93,10 +94,23 @@ class _PlayPageState extends State<PlayPage> {
   }
 
   void onLetterKeyPressed(Letter letter) {
-
+    print("Pressed: ${letter.value}");
+    Fluttertoast.showToast(
+        msg: "Pressed: ${letter.value}",
+    );
   }
 
-  void onEnterKeyPressed() {}
+  void onEnterKeyPressed() {
+    print("Pressed: Enter");
+    Fluttertoast.showToast(
+      msg: "Pressed: Enter",
+    );
+  }
 
-  void onDeleteKeyPressed() {}
+  void onDeleteKeyPressed() {
+    print("Pressed: Delete");
+    Fluttertoast.showToast(
+      msg: "Pressed: Delete",
+    );
+  }
 }

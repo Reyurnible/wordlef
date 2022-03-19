@@ -38,7 +38,7 @@ class Keyboard extends StatelessWidget {
   Keyboard({
     required this.onLetterPressed,
     required this.onEnterPressed,
-    required this.onDeletePressed
+    required this.onDeletePressed,
   });
 
   final LetterKeyItemClickCallback onLetterPressed;
@@ -48,9 +48,10 @@ class Keyboard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final List<Widget> bottomItems = [];
-    bottomItems.add(EnterKeyItem(() {}));
-    bottomItems.addAll(bottomKeyboardItems.map((l) => LetterKeyItem(l)));
-    bottomItems.add(DeleteKeyItem(() {}));
+    bottomItems.add(EnterKeyItem(onEnterPressed));
+    bottomItems.addAll(bottomKeyboardItems
+        .map((l) => LetterKeyItem(l, onPressed: onLetterPressed)));
+    bottomItems.add(DeleteKeyItem(onDeletePressed));
 
     return Column(
         mainAxisAlignment: MainAxisAlignment.center,
@@ -58,11 +59,15 @@ class Keyboard extends StatelessWidget {
         children: [
           Row(
             mainAxisSize: MainAxisSize.min,
-            children: topKeyboardItems.map((l) => LetterKeyItem(l)).toList(),
+            children: topKeyboardItems
+                .map((l) => LetterKeyItem(l, onPressed: onLetterPressed))
+                .toList(),
           ),
           Row(
             mainAxisSize: MainAxisSize.min,
-            children: middleKeyboardItems.map((l) => LetterKeyItem(l)).toList(),
+            children: middleKeyboardItems
+                .map((l) => LetterKeyItem(l, onPressed: onLetterPressed))
+                .toList(),
           ),
           Row(
             mainAxisSize: MainAxisSize.min,
