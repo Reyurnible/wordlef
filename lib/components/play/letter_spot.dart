@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:wordlef/domain/letter.dart';
 
 class LetterSpot extends StatelessWidget {
-  LetterSpot(this.letter, {
+  const LetterSpot(this.letter, {
     Key? key,
   }) : super(key: key);
 
@@ -13,7 +13,7 @@ class LetterSpot extends StatelessWidget {
     return Container(
       width: 48,
       height: 48,
-      margin: EdgeInsets.all(2),
+      margin: const EdgeInsets.all(2),
       decoration: BoxDecoration(
         border: Border.all(color: Colors.grey),
         borderRadius: BorderRadius.zero,
@@ -21,7 +21,7 @@ class LetterSpot extends StatelessWidget {
       child: Center(
           child: Text(letter.value,
             textAlign: TextAlign.center,
-            style: TextStyle(
+            style: const TextStyle(
                 fontSize: 24,
                 fontWeight: FontWeight.w800
             ),

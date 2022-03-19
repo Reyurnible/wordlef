@@ -29,6 +29,6 @@ enum Letter {
 
 extension LetterExt on Letter {
   String get value {
-    return this.toString().split(".")[1];
+    return toString().split(".")[1];
   }
 }

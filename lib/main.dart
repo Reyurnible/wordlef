@@ -6,11 +6,12 @@ import 'components/play/word_row.dart';
 import 'domain/letter.dart';
 
 void main() {
-  runApp(MyApp());
+  runApp(const MyApp());
 }
 
 class MyApp extends StatelessWidget {
-  // This widget is the root of your application.
+  const MyApp({Key? key}) : super(key: key);
+
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
@@ -18,13 +19,13 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: Colors.grey,
       ),
-      home: PlayPage(title: 'Wordlef'),
+      home: const PlayPage(title: 'Wordlef'),
     );
   }
 }
 
 class PlayPage extends StatefulWidget {
-  PlayPage({Key? key, required this.title}) : super(key: key);
+  const PlayPage({Key? key, required this.title}) : super(key: key);
 
   final String title;
 
@@ -48,12 +49,12 @@ class _PlayPageState extends State<PlayPage> {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
-            Spacer(flex: 1),
+            const Spacer(flex: 1),
             // Six tiles
             Column(
               mainAxisAlignment: MainAxisAlignment.center,
               mainAxisSize: MainAxisSize.min,
-              children: [
+              children: const [
                 WordRow(),
                 WordRow(),
                 WordRow(),
@@ -62,14 +63,14 @@ class _PlayPageState extends State<PlayPage> {
                 WordRow(),
               ],
             ),
-            Spacer(flex: 1),
+            const Spacer(flex: 1),
             // Keyboard
             Keyboard(
               onLetterPressed: onLetterKeyPressed,
               onEnterPressed: onEnterKeyPressed,
               onDeletePressed: onDeleteKeyPressed,
             ),
-            Spacer(flex: 1),
+            const Spacer(flex: 1),
           ],
         ),
       ),
@@ -77,21 +78,21 @@ class _PlayPageState extends State<PlayPage> {
   }
 
   void onLetterKeyPressed(Letter letter) {
-    print("Pressed: ${letter.value}");
+    debugPrint("Pressed: ${letter.value}");
     Fluttertoast.showToast(
         msg: "Pressed: ${letter.value}",
     );
   }
 
   void onEnterKeyPressed() {
-    print("Pressed: Enter");
+    debugPrint("Pressed: Enter");
     Fluttertoast.showToast(
       msg: "Pressed: Enter",
     );
   }
 
   void onDeleteKeyPressed() {
-    print("Pressed: Delete");
+    debugPrint("Pressed: Delete");
     Fluttertoast.showToast(
       msg: "Pressed: Delete",
     );
