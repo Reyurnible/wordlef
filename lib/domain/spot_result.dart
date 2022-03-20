@@ -1,11 +1,11 @@
 
 enum SpotResult {
   // Input word. Unknown result,
-  Unknown,
+  unknown,
   // Green: In the word and in the correct spot.
-  CorrectSpot,
+  correctSpot,
   // Yellow: In the word bug wrong spot.
-  WrongSpot,
+  wrongSpot,
   // Grey: Not in the word any spot.
-  NotInWord,
+  notInWord,
 }

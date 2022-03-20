@@ -34,7 +34,7 @@ class PlayPage extends StatefulWidget {
 }
 
 class _PlayPageState extends State<PlayPage> {
-  WordleGame _game = WordleGame();
+  final WordleGame _game = WordleGame();
 
   @override
   Widget build(BuildContext context) {
@@ -94,7 +94,7 @@ class _PlayPageState extends State<PlayPage> {
 
   List<WordRow> inflateBoard() {
     return List<WordRow>.generate(
-        GameBoard.MAX_LINE_LENGTH,
+        GameBoard.maxLineLength,
         (index) => WordRow(
               _game.board.getLineLetters(index),
               answer: _game.answer,

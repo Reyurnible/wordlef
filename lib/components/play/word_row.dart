@@ -25,7 +25,7 @@ class WordRow extends StatelessWidget {
 
   List<LetterSpot> inflateWord() {
     return List<LetterSpot>.generate(
-        GameBoard.MAX_LETTER_LENGTH, getLetterSpot);
+        GameBoard.maxWordLength, getLetterSpot);
   }
 
   LetterSpot getLetterSpot(index) {
@@ -34,18 +34,18 @@ class WordRow extends StatelessWidget {
 
   SpotResult getSpotResult(index) {
     if (!showAnswer) {
-      return SpotResult.Unknown;
+      return SpotResult.unknown;
     }
     // ゲーム終了時のハンドリングのため
     if (word.length <= index) {
-      return SpotResult.Unknown;
+      return SpotResult.unknown;
     }
     if (word[index] == answer[index]) {
-      return SpotResult.CorrectSpot;
+      return SpotResult.correctSpot;
     } else if (answer.contains(word[index])) {
-      return SpotResult.WrongSpot;
+      return SpotResult.wrongSpot;
     } else {
-      return SpotResult.NotInWord;
+      return SpotResult.notInWord;
     }
   }
 }

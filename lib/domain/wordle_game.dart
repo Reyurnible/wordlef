@@ -1,4 +1,3 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/foundation.dart';
 
 import 'letter.dart';
@@ -12,7 +11,7 @@ class WordleGame {
     Letter.D,
   ];
   final GameBoard board = GameBoard();
-  GameStatus status = GameStatus.PLAYING;
+  GameStatus status = GameStatus.playing;
 
   void onPressedLetter(Letter letter) {
     if (isEnded()) {
@@ -36,13 +35,13 @@ class WordleGame {
       // Check answer.
       if (listEquals(answer, board.getCurrentLineLetters())) {
         // Success.
-        status = GameStatus.SUCCEED;
+        status = GameStatus.succeed;
         debugPrint("Game Succeed!!!");
       } else {
         // Failure
         if (!board.moveNextLine()) {
           // LOOSE GAME
-          status = GameStatus.LOOSED;
+          status = GameStatus.loosed;
           debugPrint("Game Loosed!!!");
         } else {
           debugPrint("Move to next line. (Line: ${board.currentLine})");
@@ -57,24 +56,24 @@ class WordleGame {
   }
 
   bool isEnded() {
-    return status != GameStatus.PLAYING;
+    return status != GameStatus.playing;
   }
 }
 
 enum GameStatus {
-  PLAYING,
-  LOOSED,
-  SUCCEED,
+  playing,
+  loosed,
+  succeed,
 }
 
 class GameBoard {
-  static const int MAX_LETTER_LENGTH = 5;
-  static const int MAX_LINE_LENGTH = 6;
+  static const int maxWordLength = 5;
+  static const int maxLineLength = 6;
 
   int currentLine = 0;
 
   final List<List<Letter>> board =
-      List<List<Letter>>.generate(MAX_LINE_LENGTH, (int index) => []);
+      List<List<Letter>>.generate(maxLineLength, (int index) => []);
 
   bool addLetter(Letter letter) {
     if (checkCurrentLineFilled()) {
@@ -97,7 +96,7 @@ class GameBoard {
     if (!checkCurrentLineFilled()) {
       return false;
     }
-    if (currentLine + 1 >= MAX_LINE_LENGTH) {
+    if (currentLine + 1 >= maxLineLength) {
       // 6回目以降であれば、進まない
       return false;
     }
@@ -118,7 +117,7 @@ class GameBoard {
   }
 
   bool checkLineFilled(int line) {
-    return getLineLetters(line).length >= MAX_LETTER_LENGTH;
+    return getLineLetters(line).length >= maxWordLength;
   }
 }
 
