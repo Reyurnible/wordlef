@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:wordlef/components/play/keyboard.dart';
-import 'package:wordlef/domain/wordle_game.dart';
+import 'package:wordlef/domain/game.dart';
 
 import 'components/play/word_row.dart';
+import 'domain/game_board.dart';
 import 'domain/letter.dart';
 
 void main() {
@@ -34,7 +35,7 @@ class PlayPage extends StatefulWidget {
 }
 
 class _PlayPageState extends State<PlayPage> {
-  final WordleGame _game = WordleGame();
+  final Game _game = Game();
 
   @override
   Widget build(BuildContext context) {
@@ -99,7 +100,7 @@ class _PlayPageState extends State<PlayPage> {
               _game.board.getLineLetters(index),
               answer: _game.answer,
               showAnswer: _game.board.checkLineFilled(index) &&
-                  (index < _game.board.currentLine || _game.isEnded()),
+                  (index < _game.board.getCurrentLine() || _game.isEnded()),
             ));
   }
 }
