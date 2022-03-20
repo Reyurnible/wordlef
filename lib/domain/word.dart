@@ -17,3 +17,16 @@ class Word {
   // _$UserToJsonが生成される
   Map<String, dynamic> toJson() => _$WordToJson(this);
 }
+
+class WordList {
+  final List<Word> contents;
+
+  WordList(this.contents);
+
+  factory WordList.fromJson(List<dynamic> parsedJson) {
+    List<Word> wordList = [];
+    wordList = parsedJson.map((i) => Word.fromJson(i)).toList();
+
+    return WordList(wordList);
+  }
+}

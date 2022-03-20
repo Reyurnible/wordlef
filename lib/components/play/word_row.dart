@@ -37,7 +37,7 @@ class WordRow extends StatelessWidget {
       return SpotResult.unknown;
     }
     // ゲーム終了時のハンドリングのため
-    if (word.length <= index) {
+    if (word.length <= index || answer.isEmpty) {
       return SpotResult.unknown;
     }
     if (word[index] == answer[index]) {

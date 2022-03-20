@@ -3,6 +3,7 @@ import 'package:flutter/foundation.dart';
 import 'game_board.dart';
 import 'game_status.dart';
 import 'letter.dart';
+import 'word.dart';
 
 class Game {
   final List<Letter> answer = [
@@ -13,24 +14,30 @@ class Game {
     Letter.D,
   ];
   final GameBoard board = GameBoard();
-  GameStatus status = GameStatus.playing;
+  GameStatus status = GameStatus.loading;
+  late final List<Word> wordList;
+
+  void start(List<Word> wordList) {
+    this.wordList = wordList;
+    status = GameStatus.playing;
+  }
 
   void onPressedLetter(Letter letter) {
-    if (isEnded()) {
+    if (!isPlaying()) {
       return;
     }
     board.addLetter(letter);
   }
 
   void onPressedDelete() {
-    if (isEnded()) {
+    if (!isPlaying()) {
       return;
     }
     board.deleteLetter();
   }
 
   bool onPressedEnter() {
-    if (isEnded()) {
+    if (!isPlaying()) {
       return false;
     }
     if (board.checkCurrentLineFilled()) {
@@ -57,8 +64,12 @@ class Game {
     }
   }
 
+  bool isPlaying() {
+    return status == GameStatus.playing;
+  }
+
   bool isEnded() {
-    return status != GameStatus.playing;
+    return status == GameStatus.succeed || status == GameStatus.loosed;
   }
 }
 

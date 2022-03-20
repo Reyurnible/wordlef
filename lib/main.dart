@@ -1,5 +1,8 @@
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:json_annotation/json_annotation.dart';
 import 'package:wordlef/components/play/keyboard.dart';
 import 'package:wordlef/domain/game.dart';
 import 'package:wordlef/domain/word.dart';
@@ -38,13 +41,18 @@ class PlayPage extends StatefulWidget {
 
 class _PlayPageState extends State<PlayPage> {
   final Game _game = Game();
-  String _wordList = "";
 
   @override
-  Widget build(BuildContext context) {
+  void initState() {
+    super.initState();
     loadWordListFromAssets().then((value) => {
       onWordlistLoaded(value)
     });
+  }
+
+  @override
+  Widget build(BuildContext context) {
+
     return Scaffold(
       appBar: AppBar(
         // Here we take the value from the MyHomePage object that was created by
@@ -110,16 +118,15 @@ class _PlayPageState extends State<PlayPage> {
             ));
   }
 
-  Future<String> loadWordListFromAssets() async {
-    return rootBundle.loadString('assets/word_list.json');
+  Future<List<Word>> loadWordListFromAssets() async {
+    String json = await rootBundle.loadString('assets/word_list.json');
+    return WordList.fromJson(jsonDecode(json)).contents;
   }
 
-  void onWordlistLoaded(String result) {
+  void onWordlistLoaded(List<Word> wordList) {
     debugPrint("onWordlistLoaded");
-
-    debugPrint(result);
     setState(() {
-      _wordList = result;
+      _game.start(wordList);
     });
   }
 }
