@@ -123,6 +123,7 @@ class _PlayPageState extends State<PlayPage> {
   }
 
   Future<List<Word>> _loadWordListFromAssets() async {
+    debugPrint("_loadWordListFromAssets");
     String json = await rootBundle.loadString('assets/word_list.json');
     return WordList.fromJson(jsonDecode(json)).contents;
   }
