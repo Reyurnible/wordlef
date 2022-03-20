@@ -38,20 +38,20 @@ extension SpotResultViewExt on SpotResult {
           borderRadius: BorderRadius.zero,
         );
       case SpotResult.CorrectSpot:
-        return BoxDecoration(
-          color: Colors.green,
+        return const BoxDecoration(
+          color: Color(0xFF6AAA64),
           border: null,
           borderRadius: BorderRadius.zero,
         );
       case SpotResult.WrongSpot:
-        return BoxDecoration(
-          color: Colors.yellow,
+        return const BoxDecoration(
+          color: Color(0xFFC9B458),
           border: null,
           borderRadius: BorderRadius.zero,
         );
       case SpotResult.NotInWord:
-        return BoxDecoration(
-          color: Colors.grey,
+        return const BoxDecoration(
+          color: Color(0xFF787C7E),
           border: null,
           borderRadius: BorderRadius.zero,
         );

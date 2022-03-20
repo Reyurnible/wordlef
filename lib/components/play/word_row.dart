@@ -36,6 +36,10 @@ class WordRow extends StatelessWidget {
     if (!showAnswer) {
       return SpotResult.Unknown;
     }
+    // ゲーム終了時のハンドリングのため
+    if (word.length <= index) {
+      return SpotResult.Unknown;
+    }
     if (word[index] == answer[index]) {
       return SpotResult.CorrectSpot;
     } else if (answer.contains(word[index])) {

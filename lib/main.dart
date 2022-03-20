@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:wordlef/components/play/keyboard.dart';
-import 'package:fluttertoast/fluttertoast.dart';
 import 'package:wordlef/domain/wordle_game.dart';
 
 import 'components/play/word_row.dart';
@@ -99,7 +98,8 @@ class _PlayPageState extends State<PlayPage> {
         (index) => WordRow(
               _game.board.getLineLetters(index),
               answer: _game.answer,
-              showAnswer: index < _game.board.currentLine || _game.isEnded(),
+              showAnswer: _game.board.checkLineFilled(index) &&
+                  (index < _game.board.currentLine || _game.isEnded()),
             ));
   }
 }

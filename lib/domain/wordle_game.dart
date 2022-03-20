@@ -75,7 +75,6 @@ class GameBoard {
 
   final List<List<Letter>> board =
       List<List<Letter>>.generate(MAX_LINE_LENGTH, (int index) => []);
-      // List<List<Letter>>.filled(MAX_LINE_LENGTH, []);
 
   bool addLetter(Letter letter) {
     if (checkCurrentLineFilled()) {
@@ -115,7 +114,11 @@ class GameBoard {
   }
 
   bool checkCurrentLineFilled() {
-    return getCurrentLineLetters().length >= MAX_LETTER_LENGTH;
+    return checkLineFilled(currentLine);
+  }
+
+  bool checkLineFilled(int line) {
+    return getLineLetters(line).length >= MAX_LETTER_LENGTH;
   }
 }
 
