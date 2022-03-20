@@ -46,7 +46,7 @@ class _PlayPageState extends State<PlayPage> {
   @override
   void initState() {
     super.initState();
-    loadWordListFromAssets().then((value) => {onWordlistLoaded(value)});
+    _loadWordListFromAssets().then((value) => {_onWordlistLoaded(value)});
   }
 
   @override
@@ -68,14 +68,14 @@ class _PlayPageState extends State<PlayPage> {
             Column(
               mainAxisAlignment: MainAxisAlignment.center,
               mainAxisSize: MainAxisSize.min,
-              children: inflateBoard(),
+              children: _inflateBoard(),
             ),
             const Spacer(flex: 1),
             // Keyboard
             Keyboard(
-              onLetterPressed: onLetterKeyPressed,
-              onEnterPressed: onEnterKeyPressed,
-              onDeletePressed: onDeleteKeyPressed,
+              onLetterPressed: _onLetterKeyPressed,
+              onEnterPressed: _onEnterKeyPressed,
+              onDeletePressed: _onDeleteKeyPressed,
             ),
             const Spacer(flex: 1),
           ],
@@ -84,33 +84,34 @@ class _PlayPageState extends State<PlayPage> {
     );
   }
 
-  void onLetterKeyPressed(Letter letter) {
+  void _onLetterKeyPressed(Letter letter) {
     debugPrint("Pressed: ${letter.value}");
-    setState(() {
-      _game.onPressedLetter(letter);
-    });
+    if (_game.onPressedLetter(letter)) {
+      _updateState();
+    }
   }
 
-  void onEnterKeyPressed() {
+  void _onEnterKeyPressed() {
     debugPrint("Pressed: Enter");
     try {
-      _game.onPressedEnter();
+      if (_game.onPressedEnter()) {
+        _updateState();
+      }
     } on NotFilledWordException {
-      showEnterExceptionToast("Not filled word");
+      _showEnterExceptionToast("Not filled word");
     } on NotInWordListException {
-      showEnterExceptionToast("Not in word list");
+      _showEnterExceptionToast("Not in word list");
     }
-    setState(() {});
   }
 
-  void onDeleteKeyPressed() {
+  void _onDeleteKeyPressed() {
     debugPrint("Pressed: Delete");
-    setState(() {
-      _game.onPressedDelete();
-    });
+    if (_game.onPressedDelete()) {
+      _updateState();
+    }
   }
 
-  List<WordRow> inflateBoard() {
+  List<WordRow> _inflateBoard() {
     return List<WordRow>.generate(
         GameBoard.maxLineLength,
         (index) => WordRow(
@@ -121,19 +122,23 @@ class _PlayPageState extends State<PlayPage> {
             ));
   }
 
-  Future<List<Word>> loadWordListFromAssets() async {
+  Future<List<Word>> _loadWordListFromAssets() async {
     String json = await rootBundle.loadString('assets/word_list.json');
     return WordList.fromJson(jsonDecode(json)).contents;
   }
 
-  void onWordlistLoaded(List<Word> wordList) {
+  void _onWordlistLoaded(List<Word> wordList) {
     debugPrint("onWordlistLoaded");
     setState(() {
       _game.start(wordList);
     });
   }
 
-  void showEnterExceptionToast(String message) {
+  void _updateState() {
+    setState(() {});
+  }
+
+  void _showEnterExceptionToast(String message) {
     Fluttertoast.showToast(
       msg: message,
       toastLength: Toast.LENGTH_SHORT,

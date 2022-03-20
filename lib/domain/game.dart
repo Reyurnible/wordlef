@@ -27,18 +27,18 @@ class Game {
     status = GameStatus.playing;
   }
 
-  void onPressedLetter(Letter letter) {
+  bool onPressedLetter(Letter letter) {
     if (!isPlaying()) {
-      return;
+      return false;
     }
-    board.addLetter(letter);
+    return board.addLetter(letter);
   }
 
-  void onPressedDelete() {
+  bool onPressedDelete() {
     if (!isPlaying()) {
-      return;
+      return false;
     }
-    board.deleteLetter();
+    return board.deleteLetter();
   }
 
   bool onPressedEnter() {
