@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:wordlef/components/play/keyboard.dart';
 import 'package:wordlef/domain/game.dart';
+import 'package:wordlef/domain/word.dart';
 
 import 'components/play/word_row.dart';
 import 'domain/game_board.dart';
@@ -36,9 +38,13 @@ class PlayPage extends StatefulWidget {
 
 class _PlayPageState extends State<PlayPage> {
   final Game _game = Game();
+  String _wordList = "";
 
   @override
   Widget build(BuildContext context) {
+    loadWordListFromAssets().then((value) => {
+      onWordlistLoaded(value)
+    });
     return Scaffold(
       appBar: AppBar(
         // Here we take the value from the MyHomePage object that was created by
@@ -102,5 +108,18 @@ class _PlayPageState extends State<PlayPage> {
               showAnswer: _game.board.checkLineFilled(index) &&
                   (index < _game.board.getCurrentLine() || _game.isEnded()),
             ));
+  }
+
+  Future<String> loadWordListFromAssets() async {
+    return rootBundle.loadString('assets/word_list.json');
+  }
+
+  void onWordlistLoaded(String result) {
+    debugPrint("onWordlistLoaded");
+
+    debugPrint(result);
+    setState(() {
+      _wordList = result;
+    });
   }
 }
