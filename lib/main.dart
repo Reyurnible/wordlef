@@ -56,14 +56,7 @@ class _PlayPageState extends State<PlayPage> {
             Column(
               mainAxisAlignment: MainAxisAlignment.center,
               mainAxisSize: MainAxisSize.min,
-              children: [
-                WordRow(_game.board.getLineLetters(0)),
-                WordRow(_game.board.getLineLetters(1)),
-                WordRow(_game.board.getLineLetters(2)),
-                WordRow(_game.board.getLineLetters(3)),
-                WordRow(_game.board.getLineLetters(4)),
-                WordRow(_game.board.getLineLetters(5)),
-              ],
+              children: inflateBoard(),
             ),
             const Spacer(flex: 1),
             // Keyboard
@@ -98,5 +91,15 @@ class _PlayPageState extends State<PlayPage> {
     setState(() {
       _game.onPressedDelete();
     });
+  }
+
+  List<WordRow> inflateBoard() {
+    return List<WordRow>.generate(
+        GameBoard.MAX_LINE_LENGTH,
+        (index) => WordRow(
+              _game.board.getLineLetters(index),
+              answer: _game.answer,
+              showAnswer: index < _game.board.currentLine || _game.isEnded(),
+            ));
   }
 }

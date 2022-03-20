@@ -15,21 +15,21 @@ class WordleGame {
   GameStatus status = GameStatus.PLAYING;
 
   void onPressedLetter(Letter letter) {
-    if (status != GameStatus.PLAYING) {
+    if (isEnded()) {
       return;
     }
     board.addLetter(letter);
   }
 
   void onPressedDelete() {
-    if (status != GameStatus.PLAYING) {
+    if (isEnded()) {
       return;
     }
     board.deleteLetter();
   }
 
   bool onPressedEnter() {
-    if (status != GameStatus.PLAYING) {
+    if (isEnded()) {
       return false;
     }
     if (board.checkCurrentLineFilled()) {
@@ -54,6 +54,10 @@ class WordleGame {
       debugPrint("No filled line");
       return false;
     }
+  }
+
+  bool isEnded() {
+    return status != GameStatus.PLAYING;
   }
 }
 
