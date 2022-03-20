@@ -1,6 +1,12 @@
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
+import 'package:fluttertoast/fluttertoast.dart';
+import 'package:json_annotation/json_annotation.dart';
 import 'package:wordlef/components/play/keyboard.dart';
 import 'package:wordlef/domain/game.dart';
+import 'package:wordlef/domain/word.dart';
 
 import 'components/play/word_row.dart';
 import 'domain/game_board.dart';
@@ -38,6 +44,12 @@ class _PlayPageState extends State<PlayPage> {
   final Game _game = Game();
 
   @override
+  void initState() {
+    super.initState();
+    _loadWordListFromAssets().then((value) => {_onWordlistLoaded(value)});
+  }
+
+  @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
@@ -56,14 +68,14 @@ class _PlayPageState extends State<PlayPage> {
             Column(
               mainAxisAlignment: MainAxisAlignment.center,
               mainAxisSize: MainAxisSize.min,
-              children: inflateBoard(),
+              children: _inflateBoard(),
             ),
             const Spacer(flex: 1),
             // Keyboard
             Keyboard(
-              onLetterPressed: onLetterKeyPressed,
-              onEnterPressed: onEnterKeyPressed,
-              onDeletePressed: onDeleteKeyPressed,
+              onLetterPressed: _onLetterKeyPressed,
+              onEnterPressed: _onEnterKeyPressed,
+              onDeletePressed: _onDeleteKeyPressed,
             ),
             const Spacer(flex: 1),
           ],
@@ -72,28 +84,34 @@ class _PlayPageState extends State<PlayPage> {
     );
   }
 
-  void onLetterKeyPressed(Letter letter) {
+  void _onLetterKeyPressed(Letter letter) {
     debugPrint("Pressed: ${letter.value}");
-    setState(() {
-      _game.onPressedLetter(letter);
-    });
+    if (_game.onPressedLetter(letter)) {
+      _updateState();
+    }
   }
 
-  void onEnterKeyPressed() {
+  void _onEnterKeyPressed() {
     debugPrint("Pressed: Enter");
-    setState(() {
-      _game.onPressedEnter();
-    });
+    try {
+      if (_game.onPressedEnter()) {
+        _updateState();
+      }
+    } on NotFilledWordException {
+      _showEnterExceptionToast("Not filled word");
+    } on NotInWordListException {
+      _showEnterExceptionToast("Not in word list");
+    }
   }
 
-  void onDeleteKeyPressed() {
+  void _onDeleteKeyPressed() {
     debugPrint("Pressed: Delete");
-    setState(() {
-      _game.onPressedDelete();
-    });
+    if (_game.onPressedDelete()) {
+      _updateState();
+    }
   }
 
-  List<WordRow> inflateBoard() {
+  List<WordRow> _inflateBoard() {
     return List<WordRow>.generate(
         GameBoard.maxLineLength,
         (index) => WordRow(
@@ -102,5 +120,35 @@ class _PlayPageState extends State<PlayPage> {
               showAnswer: _game.board.checkLineFilled(index) &&
                   (index < _game.board.getCurrentLine() || _game.isEnded()),
             ));
+  }
+
+  Future<List<Word>> _loadWordListFromAssets() async {
+    debugPrint("_loadWordListFromAssets");
+    String json = await rootBundle.loadString('assets/word_list.json');
+    return WordList.fromJson(jsonDecode(json)).contents;
+  }
+
+  void _onWordlistLoaded(List<Word> wordList) {
+    debugPrint("onWordlistLoaded");
+    setState(() {
+      _game.start(wordList);
+    });
+  }
+
+  void _updateState() {
+    setState(() {});
+  }
+
+  void _showEnterExceptionToast(String message) {
+    Fluttertoast.showToast(
+      msg: message,
+      toastLength: Toast.LENGTH_SHORT,
+      gravity: ToastGravity.CENTER,
+      webPosition: "center",
+      backgroundColor: Colors.black,
+      webBgColor: "#000000",
+      fontSize: 16.0,
+      textColor: Colors.white,
+    );
   }
 }

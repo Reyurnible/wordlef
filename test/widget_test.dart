@@ -4,9 +4,11 @@ import 'package:wordlef/components/play/keyboard.dart';
 import 'package:wordlef/components/play/letter_spot.dart';
 import 'package:wordlef/main.dart';
 
+// FIXME: Async get word list handling
 void main() {
   testWidgets('Click Letter : Input word', (WidgetTester tester) async {
     await tester.pumpWidget(const MyApp());
+    await tester.pumpAndSettle(const Duration(seconds: 10));
 
     expect(find.widgetWithText(LetterSpot, "E"), findsNothing);
     expect(find.widgetWithText(LetterSpot, "A"), findsNothing);
@@ -24,29 +26,31 @@ void main() {
 
   testWidgets('Click Enter : move to next line', (WidgetTester tester) async {
     await tester.pumpWidget(const MyApp());
+    await tester.pump(const Duration(seconds: 3));
 
     // 最初になにもないところでEnterKeyを押しても問題ないことを確認しておく
     await tester.tap(find.byType(EnterKeyItem));
-    await tester.tap(find.widgetWithText(LetterKeyItem, "E"));
-    await tester.tap(find.widgetWithText(LetterKeyItem, "E"));
-    await tester.tap(find.widgetWithText(LetterKeyItem, "E"));
-    await tester.tap(find.widgetWithText(LetterKeyItem, "E"));
-    await tester.tap(find.widgetWithText(LetterKeyItem, "E"));
+    await tester.tap(find.widgetWithText(LetterKeyItem, "P"));
+    await tester.tap(find.widgetWithText(LetterKeyItem, "O"));
+    await tester.tap(find.widgetWithText(LetterKeyItem, "I"));
+    await tester.tap(find.widgetWithText(LetterKeyItem, "N"));
+    await tester.tap(find.widgetWithText(LetterKeyItem, "T"));
     // Not input. 1 word length less than equal 5.
     await tester.tap(find.widgetWithText(LetterKeyItem, "E"));
     await tester.pump();
 
-    expect(find.widgetWithText(LetterSpot, "E"), findsNWidgets(5));
+    expect(find.widgetWithText(LetterSpot, "E"), findsNothing);
 
     await tester.tap(find.byType(EnterKeyItem));
     await tester.tap(find.widgetWithText(LetterKeyItem, "E"));
     await tester.pump();
 
-    expect(find.widgetWithText(LetterSpot, "E"), findsNWidgets(6));
+    expect(find.widgetWithText(LetterSpot, "E"), findsOneWidget);
   });
 
   testWidgets('Click Delete : delete letter', (WidgetTester tester) async {
     await tester.pumpWidget(const MyApp());
+    await tester.pump(const Duration(seconds: 3));
 
     // 最初になにもないところでDeleteKeyを押しても問題ないことを確認しておく
     await tester.tap(find.byType(DeleteKeyItem));
