@@ -23,5 +23,7 @@ jobs:
           flutter-version: "2.10.3"
       - name: flutter pub get
         run: flutter pub get
+      - name: flutter analyze
+        run: flutter analyze
       - name: flutter widget test
         run: flutter test test/widget_test.dart
