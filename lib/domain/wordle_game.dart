@@ -1,4 +1,5 @@
 import 'package:flutter/cupertino.dart';
+import 'package:flutter/foundation.dart';
 
 import 'letter.dart';
 
@@ -33,19 +34,24 @@ class WordleGame {
     }
     if (board.checkCurrentLineFilled()) {
       // Check answer.
-      if (board.getCurrentLineLetters() == answer) {
+      if (listEquals(answer, board.getCurrentLineLetters())) {
         // Success.
         status = GameStatus.SUCCEED;
+        debugPrint("Game Succeed!!!");
       } else {
         // Failure
         if (!board.moveNextLine()) {
           // LOOSE GAME
           status = GameStatus.LOOSED;
+          debugPrint("Game Loosed!!!");
+        } else {
+          debugPrint("Move to next line. (Line: ${board.currentLine})");
         }
       }
       return true;
     } else {
       // Error no filled
+      debugPrint("No filled line");
       return false;
     }
   }
