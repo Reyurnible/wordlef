@@ -48,13 +48,13 @@ class Game {
     if (!board.checkCurrentLineFilled()) {
       // Error no filled
       debugPrint("No filled line");
-      return false;
+      throw NotFilledWordException();
     }
     if (!checkUpperWordSet
         .contains(board.getCurrentLineLetters().joinedValue.toUpperCase())) {
       // Error not in word list
       debugPrint("Not in word list");
-      return false;
+      throw NotInWordListException();
     }
     // Check answer.
     if (listEquals(answer, board.getCurrentLineLetters())) {
@@ -82,3 +82,7 @@ class Game {
     return status == GameStatus.succeed || status == GameStatus.loosed;
   }
 }
+
+class NotFilledWordException implements Exception {}
+
+class NotInWordListException implements Exception {}

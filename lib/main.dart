@@ -2,6 +2,7 @@ import 'dart:convert';
 
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:json_annotation/json_annotation.dart';
 import 'package:wordlef/components/play/keyboard.dart';
 import 'package:wordlef/domain/game.dart';
@@ -45,14 +46,11 @@ class _PlayPageState extends State<PlayPage> {
   @override
   void initState() {
     super.initState();
-    loadWordListFromAssets().then((value) => {
-      onWordlistLoaded(value)
-    });
+    loadWordListFromAssets().then((value) => {onWordlistLoaded(value)});
   }
 
   @override
   Widget build(BuildContext context) {
-
     return Scaffold(
       appBar: AppBar(
         // Here we take the value from the MyHomePage object that was created by
@@ -95,9 +93,14 @@ class _PlayPageState extends State<PlayPage> {
 
   void onEnterKeyPressed() {
     debugPrint("Pressed: Enter");
-    setState(() {
+    try {
       _game.onPressedEnter();
-    });
+    } on NotFilledWordException {
+      showEnterExceptionToast("Not filled word");
+    } on NotInWordListException {
+      showEnterExceptionToast("Not in word list");
+    }
+    setState(() {});
   }
 
   void onDeleteKeyPressed() {
@@ -128,5 +131,18 @@ class _PlayPageState extends State<PlayPage> {
     setState(() {
       _game.start(wordList);
     });
+  }
+
+  void showEnterExceptionToast(String message) {
+    Fluttertoast.showToast(
+      msg: message,
+      toastLength: Toast.LENGTH_SHORT,
+      gravity: ToastGravity.CENTER,
+      webPosition: "center",
+      backgroundColor: Colors.black,
+      webBgColor: "#000000",
+      fontSize: 16.0,
+      textColor: Colors.white,
+    );
   }
 }
