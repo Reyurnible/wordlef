@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:wordlef/components/play/keyboard.dart';
-import 'package:fluttertoast/fluttertoast.dart';
+import 'package:wordlef/domain/wordle_game.dart';
 
 import 'components/play/word_row.dart';
 import 'domain/letter.dart';
@@ -34,7 +34,8 @@ class PlayPage extends StatefulWidget {
 }
 
 class _PlayPageState extends State<PlayPage> {
-  
+  final WordleGame _game = WordleGame();
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -54,14 +55,7 @@ class _PlayPageState extends State<PlayPage> {
             Column(
               mainAxisAlignment: MainAxisAlignment.center,
               mainAxisSize: MainAxisSize.min,
-              children: const [
-                WordRow(),
-                WordRow(),
-                WordRow(),
-                WordRow(),
-                WordRow(),
-                WordRow(),
-              ],
+              children: inflateBoard(),
             ),
             const Spacer(flex: 1),
             // Keyboard
@@ -79,22 +73,33 @@ class _PlayPageState extends State<PlayPage> {
 
   void onLetterKeyPressed(Letter letter) {
     debugPrint("Pressed: ${letter.value}");
-    Fluttertoast.showToast(
-        msg: "Pressed: ${letter.value}",
-    );
+    setState(() {
+      _game.onPressedLetter(letter);
+    });
   }
 
   void onEnterKeyPressed() {
     debugPrint("Pressed: Enter");
-    Fluttertoast.showToast(
-      msg: "Pressed: Enter",
-    );
+    setState(() {
+      _game.onPressedEnter();
+    });
   }
 
   void onDeleteKeyPressed() {
     debugPrint("Pressed: Delete");
-    Fluttertoast.showToast(
-      msg: "Pressed: Delete",
-    );
+    setState(() {
+      _game.onPressedDelete();
+    });
+  }
+
+  List<WordRow> inflateBoard() {
+    return List<WordRow>.generate(
+        GameBoard.maxLineLength,
+        (index) => WordRow(
+              _game.board.getLineLetters(index),
+              answer: _game.answer,
+              showAnswer: _game.board.checkLineFilled(index) &&
+                  (index < _game.board.currentLine || _game.isEnded()),
+            ));
   }
 }
