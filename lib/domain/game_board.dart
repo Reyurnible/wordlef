@@ -59,5 +59,9 @@ class GameBoard {
   bool checkLineFilled(int line) {
     return getLineLetters(line).length >= maxWordLength;
   }
+
+  bool contains(Letter letter) {
+    return board.any((rowList) => rowList.contains(letter));
+  }
 }
 
