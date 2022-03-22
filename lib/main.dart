@@ -75,9 +75,7 @@ class _PlayPageState extends State<PlayPage> {
             const Spacer(flex: 1),
             // Keyboard
             Keyboard(
-              letterWithResult: const {
-                Letter.B : SpotResult.correctSpot
-              },
+              letterWithResult: _game.getLetterWithResult(),
               onLetterPressed: _onLetterKeyPressed,
               onEnterPressed: _onEnterKeyPressed,
               onDeletePressed: _onDeleteKeyPressed,
