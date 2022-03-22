@@ -1,3 +1,5 @@
+import 'dart:math';
+
 import 'package:flutter/foundation.dart';
 
 import 'game_board.dart';
@@ -6,16 +8,10 @@ import 'letter.dart';
 import 'word.dart';
 
 class Game {
-  final List<Letter> answer = [
-    Letter.B,
-    Letter.O,
-    Letter.A,
-    Letter.R,
-    Letter.D,
-  ];
   late final List<Word> wordList;
   late final Set<String> checkUpperWordSet;
-
+  
+  List<Letter> answer = [];
   final GameBoard board = GameBoard();
   GameStatus status = GameStatus.loading;
 
@@ -23,7 +19,9 @@ class Game {
     this.wordList = wordList;
     checkUpperWordSet =
         wordList.map((element) => element.word.toUpperCase()).toSet();
-
+    final Word answerWord = wordList.random();
+    answer = answerWord.letterList;
+    debugPrint("Answer: ${answerWord.word}");
     status = GameStatus.playing;
   }
 
@@ -86,3 +84,10 @@ class Game {
 class NotFilledWordException implements Exception {}
 
 class NotInWordListException implements Exception {}
+
+extension ListExt<T> on List<T> {
+  T random() {
+    int randomIndex = Random().nextInt(length);
+    return elementAt(randomIndex);
+  } 
+} 
