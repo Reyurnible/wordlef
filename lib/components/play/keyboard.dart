@@ -91,7 +91,7 @@ class LetterKeyItem extends StatelessWidget {
         child: ElevatedButton(
           child: Text(letter.value),
           style: ButtonStyle(
-              backgroundColor: MaterialStateProperty.all(Colors.grey),
+              backgroundColor: MaterialStateProperty.all(const Color(0xFFD3D6DA)),
               minimumSize: MaterialStateProperty.all(const Size(36, 48)),
               fixedSize: MaterialStateProperty.all(const Size(36, 48)),
               padding: MaterialStateProperty.all(EdgeInsets.zero),
@@ -118,7 +118,7 @@ class EnterKeyItem extends StatelessWidget {
         child: ElevatedButton(
           child: const Text("ENTER"),
           style: ButtonStyle(
-            backgroundColor: MaterialStateProperty.all(Colors.grey),
+            backgroundColor: MaterialStateProperty.all(const Color(0xFFD3D6DA)),
             minimumSize: MaterialStateProperty.all(const Size(54, 48)),
             fixedSize: MaterialStateProperty.all(const Size(54, 48)),
             padding: MaterialStateProperty.all(EdgeInsets.zero),
@@ -144,7 +144,7 @@ class DeleteKeyItem extends StatelessWidget {
         child: ElevatedButton(
           child: const Text("DEL"),
           style: ButtonStyle(
-            backgroundColor: MaterialStateProperty.all(Colors.grey),
+            backgroundColor: MaterialStateProperty.all(const Color(0xFFD3D6DA)),
             minimumSize: MaterialStateProperty.all(const Size(54, 48)),
             fixedSize: MaterialStateProperty.all(const Size(54, 48)),
             padding: MaterialStateProperty.all(EdgeInsets.zero),
