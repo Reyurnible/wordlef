@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:wordlef/components/play/spot_result_view_ext.dart';
 import 'package:wordlef/domain/letter.dart';
 import 'package:wordlef/domain/spot_result.dart';
 
@@ -18,19 +19,17 @@ class LetterSpot extends StatelessWidget {
         width: 48,
         height: 48,
         margin: const EdgeInsets.all(2),
-        decoration: spotResult.boxDecoration,
+        decoration: _inflateBoxDecoration(spotResult),
         child: Center(
             child: Text(
           letter?.value ?? "",
           textAlign: TextAlign.center,
-          style: spotResult.textStyle,
+          style: _inflateTextStyle(spotResult),
         )));
   }
-}
 
-extension SpotResultViewExt on SpotResult {
-  BoxDecoration get boxDecoration {
-    switch (this) {
+  BoxDecoration _inflateBoxDecoration(SpotResult spotResult) {
+    switch (spotResult) {
       case SpotResult.unknown:
         return BoxDecoration(
           color: Colors.white,
@@ -38,28 +37,18 @@ extension SpotResultViewExt on SpotResult {
           borderRadius: BorderRadius.zero,
         );
       case SpotResult.correctSpot:
-        return const BoxDecoration(
-          color: Color(0xFF6AAA64),
-          border: null,
-          borderRadius: BorderRadius.zero,
-        );
       case SpotResult.wrongSpot:
-        return const BoxDecoration(
-          color: Color(0xFFC9B458),
-          border: null,
-          borderRadius: BorderRadius.zero,
-        );
       case SpotResult.notInWord:
-        return const BoxDecoration(
-          color: Color(0xFF787C7E),
+        return BoxDecoration(
+          color: spotResult.color,
           border: null,
           borderRadius: BorderRadius.zero,
         );
     }
   }
 
-  TextStyle get textStyle {
-    switch (this) {
+  TextStyle _inflateTextStyle(SpotResult spotResult) {
+    switch (spotResult) {
       case SpotResult.unknown:
         return const TextStyle(
             color: Colors.black, fontSize: 24, fontWeight: FontWeight.w800);

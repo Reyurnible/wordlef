@@ -1,6 +1,7 @@
 import 'dart:math';
 
 import 'package:flutter/foundation.dart';
+import 'package:wordlef/domain/spot_result.dart';
 
 import 'game_board.dart';
 import 'game_status.dart';
@@ -78,6 +79,33 @@ class Game {
 
   bool isEnded() {
     return status == GameStatus.succeed || status == GameStatus.loosed;
+  }
+  
+  Map<Letter, SpotResult> getLetterWithResult() {
+    if (status == GameStatus.loading) {
+      return {};
+    }
+    Map<Letter, SpotResult> result = {};
+    for (var letter in Letter.values) {
+      if (board.containsTakeCurrentLine(letter)) {
+        if (answer.contains(letter)) {
+          // 正解の場合
+          int answerIndex = answer.indexOf(letter);
+          assert(answerIndex >= 0);
+          Iterable<int> boardIndexList = board.board.map((row) => row.indexOf(letter));
+          if (boardIndexList.contains(answerIndex)) {
+            result[letter] = SpotResult.correctSpot;
+          } else {
+            result[letter] = SpotResult.wrongSpot;
+          }
+        } else {
+          result[letter] = SpotResult.notInWord;
+        }
+      } else {
+        result[letter] = SpotResult.unknown;
+      }
+    }
+    return result;
   }
 }
 
