@@ -7,6 +7,7 @@ import 'package:fluttertoast/fluttertoast.dart';
 import 'package:json_annotation/json_annotation.dart';
 import 'package:wordlef/components/play/keyboard.dart';
 import 'package:wordlef/domain/game.dart';
+import 'package:wordlef/domain/game_status.dart';
 import 'package:wordlef/domain/spot_result.dart';
 import 'package:wordlef/domain/word.dart';
 
@@ -99,6 +100,19 @@ class _PlayPageState extends State<PlayPage> {
     try {
       if (_game.onPressedEnter()) {
         _updateState();
+        switch (_game.status) {
+          case GameStatus.succeed:
+            _showSucceedExceptionToast();
+            break;
+          case GameStatus.loosed:
+            _showLoosedExceptionToast();
+            break;
+          case GameStatus.loading:
+          case GameStatus.playing:
+            // Not in action.
+            break;
+
+        }
       }
     } on NotFilledWordException {
       _showEnterExceptionToast("Not filled word");
@@ -150,6 +164,32 @@ class _PlayPageState extends State<PlayPage> {
       webPosition: "center",
       backgroundColor: Colors.black,
       webBgColor: "#000000",
+      fontSize: 16.0,
+      textColor: Colors.white,
+    );
+  }
+
+  void _showSucceedExceptionToast() {
+    Fluttertoast.showToast(
+      msg: "SUCCESS",
+      toastLength: Toast.LENGTH_SHORT,
+      gravity: ToastGravity.CENTER,
+      webPosition: "center",
+      backgroundColor: Colors.blue,
+      webBgColor: "#2196F3",
+      fontSize: 16.0,
+      textColor: Colors.white,
+    );
+  }
+
+  void _showLoosedExceptionToast() {
+    Fluttertoast.showToast(
+      msg: "LOOSED",
+      toastLength: Toast.LENGTH_SHORT,
+      gravity: ToastGravity.CENTER,
+      webPosition: "center",
+      backgroundColor: Colors.deepOrangeAccent,
+      webBgColor: "#FF6E40",
       fontSize: 16.0,
       textColor: Colors.white,
     );
