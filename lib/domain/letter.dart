@@ -31,6 +31,11 @@ extension LetterExt on Letter {
   String get value {
     return toString().split(".")[1];
   }
+
+  static Letter valueOf(String letter) {
+    assert(letter.length == 1);
+    return Letter.values.firstWhere((element) => (element.value == letter));
+  }
 }
 
 extension ListLetterExt on List<Letter> {
