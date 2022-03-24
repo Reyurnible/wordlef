@@ -90,8 +90,8 @@ class _PlayPageState extends State<PlayPage> {
             break;
         }
       }
-    } on NotFilledWordException {
-      _showEnterExceptionToast("Not filled word");
+    } on NotEnoughLettersException {
+      _showEnterExceptionToast("Not enough letters");
     } on NotInWordListException {
       _showEnterExceptionToast("Not in word list");
     }
