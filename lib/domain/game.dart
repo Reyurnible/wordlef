@@ -47,7 +47,7 @@ class Game {
     if (!board.checkCurrentLineFilled()) {
       // Error no filled
       debugPrint("No filled line");
-      throw NotFilledWordException();
+      throw NotEnoughLettersException();
     }
     if (!checkUpperWordSet
         .contains(board.getCurrentLineLetters().joinedValue.toUpperCase())) {
@@ -109,7 +109,7 @@ class Game {
   }
 }
 
-class NotFilledWordException implements Exception {}
+class NotEnoughLettersException implements Exception {}
 
 class NotInWordListException implements Exception {}
 
