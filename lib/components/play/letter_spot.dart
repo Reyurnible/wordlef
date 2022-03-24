@@ -16,8 +16,8 @@ class LetterSpot extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-        width: 48,
-        height: 48,
+        width: 56,
+        height: 56,
         margin: const EdgeInsets.all(2),
         decoration: _inflateBoxDecoration(spotResult),
         child: Center(
@@ -33,7 +33,11 @@ class LetterSpot extends StatelessWidget {
       case SpotResult.unknown:
         return BoxDecoration(
           color: Colors.white,
-          border: Border.all(color: Colors.grey),
+          border: Border.all(
+              color: letter != null
+                  ? const Color(0xFF878A8C)
+                  : const Color(0xFFD3D6DA),
+              width: 2),
           borderRadius: BorderRadius.zero,
         );
       case SpotResult.correctSpot:
