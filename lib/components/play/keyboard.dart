@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:wordlef/domain/letter.dart';
-import 'package:wordlef/domain/spot_result.dart';
+import 'package:wordlef/domain/model/letter.dart';
+import 'package:wordlef/domain/model/spot_result.dart';
 
 import 'keyboard/delete_key_item.dart';
 import 'keyboard/enter_key_item.dart';

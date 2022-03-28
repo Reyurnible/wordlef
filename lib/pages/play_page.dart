@@ -4,17 +4,17 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:wordlef/components/play/keyboard.dart';
-import 'package:wordlef/domain/game.dart';
-import 'package:wordlef/domain/word.dart';
+import 'package:wordlef/domain/model/game.dart';
+import 'package:wordlef/domain/model/word.dart';
 
 import '../components/play/game_board_column.dart';
-import '../domain/game_status.dart';
-import '../domain/letter.dart';
+import '../domain/model/game_status.dart';
+import '../domain/model/letter.dart';
 
 class PlayPage extends StatefulWidget {
-  const PlayPage({Key? key, required this.title}) : super(key: key);
+  const PlayPage({Key? key}) : super(key: key);
 
-  final String title;
+  final String title = "Wordlef";
 
   @override
   _PlayPageState createState() => _PlayPageState();

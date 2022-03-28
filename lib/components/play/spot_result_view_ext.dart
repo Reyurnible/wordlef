@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import '../../domain/spot_result.dart';
+import '../../domain/model/spot_result.dart';
 
 extension SpotResultViewExt on SpotResult {
   Color get color {

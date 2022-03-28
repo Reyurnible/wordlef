@@ -1,6 +1,8 @@
 import 'package:flutter_test/flutter_test.dart';
 
-import 'package:wordlef/components/play/keyboard.dart';
+import 'package:wordlef/components/play/keyboard/delete_key_item.dart';
+import 'package:wordlef/components/play/keyboard/enter_key_item.dart';
+import 'package:wordlef/components/play/keyboard/letter_key_item.dart';
 import 'package:wordlef/components/play/letter_spot.dart';
 import 'package:wordlef/main.dart';
 
