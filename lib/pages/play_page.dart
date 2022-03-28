@@ -6,13 +6,16 @@ import 'package:fluttertoast/fluttertoast.dart';
 import 'package:wordlef/components/play/keyboard.dart';
 import 'package:wordlef/domain/model/game.dart';
 import 'package:wordlef/domain/model/word.dart';
+import 'package:wordlef/domain/repository/word_repository.dart';
 
 import '../components/play/game_board_column.dart';
 import '../domain/model/game_status.dart';
 import '../domain/model/letter.dart';
 
 class PlayPage extends StatefulWidget {
-  const PlayPage({Key? key}) : super(key: key);
+  const PlayPage({
+    Key? key,
+  }) : super(key: key);
 
   final String title = "Wordlef";
 
@@ -22,11 +25,12 @@ class PlayPage extends StatefulWidget {
 
 class _PlayPageState extends State<PlayPage> {
   final Game _game = Game();
+  final IWordRepository _wordRepository = WordRepository();
 
   @override
   void initState() {
     super.initState();
-    _loadWordListFromAssets().then((value) => {_onWordlistLoaded(value)});
+    _wordRepository.fetchWordList().then(_onWordlistLoaded);
   }
 
   @override
@@ -102,12 +106,6 @@ class _PlayPageState extends State<PlayPage> {
     if (_game.onPressedDelete()) {
       _updateState();
     }
-  }
-
-  Future<List<Word>> _loadWordListFromAssets() async {
-    debugPrint("_loadWordListFromAssets");
-    String json = await rootBundle.loadString('assets/word_list.json');
-    return WordList.fromJson(jsonDecode(json)).contents;
   }
 
   void _onWordlistLoaded(List<Word> wordList) {
