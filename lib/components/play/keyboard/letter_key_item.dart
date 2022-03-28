@@ -3,7 +3,7 @@ import 'package:wordlef/components/play/spot_result_view_ext.dart';
 
 import '../../../domain/letter.dart';
 import '../../../domain/spot_result.dart';
-import '../keyboard.dart';
+import 'key_item_theme.dart';
 
 class LetterKeyItem extends StatelessWidget {
   const LetterKeyItem(this.letter,
@@ -17,20 +17,23 @@ class LetterKeyItem extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-        child: ElevatedButton(
-          child: Text(letter.value,
-              style: _inflateSpotResultTextStyle(spotResult)),
-          style: ButtonStyle(
-            backgroundColor: MaterialStateProperty.all(spotResult.color),
-            minimumSize: MaterialStateProperty.all(const Size(Keyboard.minimumKeyItemWidth, Keyboard.keyItemHeight)),
-            fixedSize: MaterialStateProperty.all(const Size(Keyboard.defaultKeyItemWidth, Keyboard.keyItemHeight)),
-            padding: MaterialStateProperty.all(EdgeInsets.zero),
-          ),
-          onPressed: () {
-            onPressed.call(letter);
-          },
+        child: SizedBox(
+          width: KeyItemTheme.letterKeyItemWidth(context),
+          height: KeyItemTheme.keyItemHeight,
+          child: ElevatedButton(
+              child: Text(letter.value,
+                  style: _inflateSpotResultTextStyle(spotResult)),
+              style: ButtonStyle(
+                backgroundColor: MaterialStateProperty.all(spotResult.color),
+                padding: MaterialStateProperty.all(EdgeInsets.zero),
+              ),
+              onPressed: () {
+                onPressed.call(letter);
+              },
+            )
         ),
-        margin: const EdgeInsets.all(2));
+        margin: KeyItemTheme.margin,
+    );
   }
 
   TextStyle _inflateSpotResultTextStyle(SpotResult spotResult) {
