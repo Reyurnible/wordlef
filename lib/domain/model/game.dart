@@ -90,10 +90,9 @@ class Game {
     for (var letter in Letter.values) {
       if (board.containsTakeCurrentLine(letter)) {
         if (answer.contains(letter)) {
-          // 正解の場合
           int answerIndex = answer.indexOf(letter);
           assert(answerIndex >= 0);
-          Iterable<int> boardIndexList = board.board.map((row) => row.indexOf(letter));
+          Iterable<int> boardIndexList = board.takeCurrentLineRows().map((row) => row.indexOf(letter));
           if (boardIndexList.contains(answerIndex)) {
             result[letter] = SpotResult.correctSpot;
           } else {
