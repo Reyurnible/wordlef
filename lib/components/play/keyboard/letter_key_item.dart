@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:wordlef/components/play/spot_result_view_ext.dart';
 
-import '../../../domain/letter.dart';
-import '../../../domain/spot_result.dart';
+import '../../../domain/model/letter.dart';
+import '../../../domain/model/spot_result.dart';
 import 'key_item_theme.dart';
 
 class LetterKeyItem extends StatelessWidget {

@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:wordlef/domain/game_board.dart';
-import 'package:wordlef/domain/letter.dart';
+import 'package:wordlef/domain/model/game_board.dart';
+import 'package:wordlef/domain/model/letter.dart';
 
 import 'word_row.dart';
 

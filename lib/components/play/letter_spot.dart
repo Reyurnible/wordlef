@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:wordlef/components/play/spot_result_view_ext.dart';
-import 'package:wordlef/domain/letter.dart';
-import 'package:wordlef/domain/spot_result.dart';
+import 'package:wordlef/domain/model/letter.dart';
+import 'package:wordlef/domain/model/spot_result.dart';
 
 class LetterSpot extends StatelessWidget {
   const LetterSpot(

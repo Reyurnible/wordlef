@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:wordlef/domain/game_board.dart';
-import 'package:wordlef/domain/letter.dart';
-import 'package:wordlef/domain/spot_result.dart';
+import 'package:wordlef/domain/model/game_board.dart';
+import 'package:wordlef/domain/model/letter.dart';
+import 'package:wordlef/domain/model/spot_result.dart';
 import 'letter_spot.dart';
 
 class WordRow extends StatelessWidget {
