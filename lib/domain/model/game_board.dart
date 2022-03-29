@@ -60,8 +60,12 @@ class GameBoard {
     return getLineLetters(line).length >= maxWordLength;
   }
 
+  List<List<Letter>> takeCurrentLineRows() {
+    return board.take(_currentLine).toList();
+  }
+
   bool containsTakeCurrentLine(Letter letter) {
-    return board.take(_currentLine).any((rowList) => rowList.contains(letter));
+    return takeCurrentLineRows().any((rowList) => rowList.contains(letter));
   }
 }
 
