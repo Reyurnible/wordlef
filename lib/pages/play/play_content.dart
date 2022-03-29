@@ -43,9 +43,12 @@ class _PlayContentState extends State<PlayContent> {
             answer: widget.game.answer,
             isGameEnd: widget.game.isEnded(),
           ),
-          IconButton(
-              onPressed: _onRestartPressed,
-              icon: const Icon(Icons.refresh)
+          const SizedBox(height: 16),
+          TextButton.icon(
+            icon: const Icon(Icons.refresh),
+            label: const Text("RESTART",
+                style: TextStyle(fontSize: 16, fontWeight: FontWeight.w600)),
+            onPressed: _onRestartPressed,
           ),
           const Spacer(flex: 1),
           // Keyboard
