@@ -17,11 +17,11 @@ class PlayContent extends StatefulWidget {
 
   @override
   State<StatefulWidget> createState() {
-    return PlayContentState();
+    return _PlayContentState();
   }
 }
 
-class PlayContentState extends State<PlayContent> {
+class _PlayContentState extends State<PlayContent> {
   @override
   void initState() {
     super.initState();
