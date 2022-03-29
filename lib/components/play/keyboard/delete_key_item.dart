@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 
-import '../keyboard.dart';
 import 'key_item_theme.dart';
 
 class DeleteKeyItem extends StatelessWidget {

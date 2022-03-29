@@ -1,8 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:wordlef/components/play/keyboard/key_item_theme.dart';
 
-import '../keyboard.dart';
-
 class EnterKeyItem extends StatelessWidget {
   const EnterKeyItem({Key? key, required this.onPressed}) : super(key: key);
 
