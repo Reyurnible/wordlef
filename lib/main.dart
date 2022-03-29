@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
-import 'pages/play_page.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'pages/play/play_page.dart';
 
 void main() {
-  runApp(const MyApp());
+  runApp(const ProviderScope(child: MyApp()));
 }
 
 class MyApp extends StatelessWidget {

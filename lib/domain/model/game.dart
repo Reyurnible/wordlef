@@ -9,17 +9,18 @@ import 'letter.dart';
 import 'word.dart';
 
 class Game {
-  late final List<Word> wordList;
+  Game(this.wordList) {
+    checkUpperWordSet = wordList.map((element) => element.word.toUpperCase()).toSet();
+  }
+
+  final List<Word> wordList;
   late final Set<String> checkUpperWordSet;
   
   List<Letter> answer = [];
   final GameBoard board = GameBoard();
   GameStatus status = GameStatus.loading;
 
-  void start(List<Word> wordList) {
-    this.wordList = wordList;
-    checkUpperWordSet =
-        wordList.map((element) => element.word.toUpperCase()).toSet();
+  void start() {
     final Word answerWord = wordList.random();
     answer = answerWord.letterList;
     debugPrint("Answer: ${answerWord.word}");

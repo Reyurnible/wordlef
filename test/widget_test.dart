@@ -1,3 +1,4 @@
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_test/flutter_test.dart';
 
 import 'package:wordlef/components/play/keyboard/delete_key_item.dart';
@@ -9,7 +10,7 @@ import 'package:wordlef/main.dart';
 // FIXME: Async get word list handling
 void main() {
   testWidgets('Click Letter : Input word', (WidgetTester tester) async {
-    await tester.pumpWidget(const MyApp());
+    await tester.pumpWidget(const ProviderScope(child: MyApp()));
     await tester.pumpAndSettle(const Duration(seconds: 10));
 
     expect(find.widgetWithText(LetterSpot, "E"), findsNothing);
