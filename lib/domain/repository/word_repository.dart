@@ -2,6 +2,7 @@ import 'dart:async';
 import 'dart:convert';
 
 import 'package:flutter/services.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import '../model/word.dart';
 
@@ -16,6 +17,8 @@ class WordRepository extends IWordRepository {
     return WordList.fromJson(jsonDecode(json)).contents;
   }
 }
+
+final wordRepositoryProvider = Provider((ref) => WordRepository());
 
 class MockWordRepository extends IWordRepository {
   @override
