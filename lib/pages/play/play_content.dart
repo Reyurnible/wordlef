@@ -43,6 +43,10 @@ class _PlayContentState extends State<PlayContent> {
             answer: widget.game.answer,
             isGameEnd: widget.game.isEnded(),
           ),
+          IconButton(
+              onPressed: _onRestartPressed,
+              icon: const Icon(Icons.refresh)
+          ),
           const Spacer(flex: 1),
           // Keyboard
           Keyboard(
@@ -91,10 +95,15 @@ class _PlayContentState extends State<PlayContent> {
   }
 
   void _onDeleteKeyPressed() {
-    debugPrint("Pressed: Delete");
     if (widget.game.onPressedDelete()) {
       _updateState();
     }
+  }
+
+  void _onRestartPressed() {
+    debugPrint("Pressed: Refresh");
+    widget.game.start();
+    _updateState();
   }
 
   void _updateState() {

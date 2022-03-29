@@ -17,14 +17,17 @@ class Game {
   late final Set<String> checkUpperWordSet;
   
   List<Letter> answer = [];
-  final GameBoard board = GameBoard();
+  GameBoard board = GameBoard();
   GameStatus status = GameStatus.loading;
 
   void start() {
     final Word answerWord = wordList.random();
     answer = answerWord.letterList;
-    debugPrint("Answer: ${answerWord.word}");
+    board = GameBoard();
     status = GameStatus.playing;
+
+    debugPrint("======START GAME======");
+    debugPrint("Answer: ${answerWord.word}");
   }
 
   bool onPressedLetter(Letter letter) {
@@ -61,12 +64,14 @@ class Game {
       // Success.
       status = GameStatus.succeed;
       debugPrint("Game Succeed!!!");
+      debugPrint("======END GAME======");
     } else {
       // Failure
       if (!board.moveNextLine()) {
         // LOOSE GAME
         status = GameStatus.loosed;
         debugPrint("Game Loosed!!!");
+        debugPrint("======END GAME======");
       } else {
         debugPrint("Move to next line. (Current: ${board.getCurrentLine()})");
       }
