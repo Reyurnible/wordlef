@@ -18,13 +18,4 @@ class WordRepository extends IWordRepository {
   }
 }
 
-final wordRepositoryProvider = Provider((ref) => WordRepository());
-
-class MockWordRepository extends IWordRepository {
-  @override
-  Future<List<Word>> fetchWordList() {
-    return Future.value([
-      Word("board", "japanese", "commentary"),
-    ]);
-  }
-}
+final wordRepositoryProvider = Provider<IWordRepository>((ref) => WordRepository());
