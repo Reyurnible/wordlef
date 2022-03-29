@@ -1,8 +1,8 @@
 import 'dart:math';
 
 import 'package:flutter/foundation.dart';
-import 'package:wordlef/domain/model/spot_result.dart';
 
+import 'spot_result.dart';
 import 'game_board.dart';
 import 'game_status.dart';
 import 'letter.dart';
@@ -90,13 +90,16 @@ class Game {
     for (var letter in Letter.values) {
       if (board.containsTakeCurrentLine(letter)) {
         if (answer.contains(letter)) {
-          int answerIndex = answer.indexOf(letter);
-          assert(answerIndex >= 0);
-          Iterable<int> boardIndexList = board.takeCurrentLineRows().map((row) => row.indexOf(letter));
-          if (boardIndexList.contains(answerIndex)) {
-            result[letter] = SpotResult.correctSpot;
-          } else {
-            result[letter] = SpotResult.wrongSpot;
+          for(int index = 0; index < answer.length; index++) {
+            if (letter != answer[index]) {
+              continue;
+            }
+            Iterable<int> boardIndexList = board.takeCurrentLineRows().map((row) => row.indexOf(letter));
+            if (boardIndexList.contains(index)) {
+              result[letter] = SpotResult.correctSpot;
+            } else if (result[letter] != SpotResult.correctSpot) {
+              result[letter] = SpotResult.wrongSpot;
+            }
           }
         } else {
           result[letter] = SpotResult.notInWord;
