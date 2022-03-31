@@ -17,11 +17,11 @@ class PlayContent extends StatefulWidget {
 
   @override
   State<StatefulWidget> createState() {
-    return PlayContentState();
+    return _PlayContentState();
   }
 }
 
-class PlayContentState extends State<PlayContent> {
+class _PlayContentState extends State<PlayContent> {
   @override
   void initState() {
     super.initState();
@@ -31,28 +31,34 @@ class PlayContentState extends State<PlayContent> {
   @override
   Widget build(BuildContext context) {
     return Center(
-      // Center is a layout widget. It takes a single child and positions it
-      // in the middle of the parent.
-      child: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: <Widget>[
-          const Spacer(flex: 1),
-          // Six tiles
-          GameBoardColumn(
-            widget.game.board,
-            answer: widget.game.answer,
-            isGameEnd: widget.game.isEnded(),
-          ),
-          const Spacer(flex: 1),
-          // Keyboard
-          Keyboard(
-            letterWithResult: widget.game.getLetterWithResult(),
-            onLetterPressed: _onLetterKeyPressed,
-            onEnterPressed: _onEnterKeyPressed,
-            onDeletePressed: _onDeleteKeyPressed,
-          ),
-          const Spacer(flex: 1),
-        ],
+      child: SingleChildScrollView(
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          mainAxisSize: MainAxisSize.min,
+          children: <Widget>[
+            // Six tiles
+            GameBoardColumn(
+              widget.game.board,
+              answer: widget.game.answer,
+              isGameEnd: widget.game.isEnded(),
+            ),
+            const SizedBox(height: 16),
+            TextButton.icon(
+              icon: const Icon(Icons.refresh),
+              label: const Text("RESTART",
+                  style: TextStyle(fontSize: 16, fontWeight: FontWeight.w600)),
+              onPressed: _onRestartPressed,
+            ),
+            const SizedBox(height: 48),
+            // Keyboard
+            Keyboard(
+              letterWithResult: widget.game.getLetterWithResult(),
+              onLetterPressed: _onLetterKeyPressed,
+              onEnterPressed: _onEnterKeyPressed,
+              onDeletePressed: _onDeleteKeyPressed,
+            ),
+          ],
+        ),
       ),
     );
   }
@@ -91,10 +97,15 @@ class PlayContentState extends State<PlayContent> {
   }
 
   void _onDeleteKeyPressed() {
-    debugPrint("Pressed: Delete");
     if (widget.game.onPressedDelete()) {
       _updateState();
     }
+  }
+
+  void _onRestartPressed() {
+    debugPrint("Pressed: Refresh");
+    widget.game.start();
+    _updateState();
   }
 
   void _updateState() {
