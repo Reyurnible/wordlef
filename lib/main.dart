@@ -15,6 +15,7 @@ class MyApp extends StatelessWidget {
       title: 'Wordlef',
       theme: ThemeData(
         primarySwatch: Colors.grey,
+        fontFamily: 'OpenSans',
       ),
       home: const PlayPage(),
     );
