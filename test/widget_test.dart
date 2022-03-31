@@ -11,8 +11,15 @@ import 'package:wordlef/main.dart';
 
 import 'mock/mock_word_repository.dart';
 
-// FIXME: Async get word list handling
+/// Widget test tips: https://gist.github.com/Esgrima/c0d4bff4b0d3909daf8994410cd659ce
 void main() {
+  // Remember this runs before EACH test or group
+  setUp(() async {
+    debugPrint("Before setUp");
+    // final TestWidgetsFlutterBinding binding =
+    //     TestWidgetsFlutterBinding.ensureInitialized();
+  });
+
   testWidgets('Click Letter : Input word', (WidgetTester tester) async {
     await tester.pumpWidget(
       ProviderScope(
@@ -32,6 +39,8 @@ void main() {
     expect(find.widgetWithText(LetterSpot, "A"), findsNothing);
     expect(find.widgetWithText(LetterSpot, "D"), findsNothing);
 
+    await tester.scrollUntilVisible(find.byType(EnterKeyItem), 100);
+    
     await tester.tap(find.widgetWithText(LetterKeyItem, "E"));
     await tester.tap(find.widgetWithText(LetterKeyItem, "A"));
     await tester.tap(find.widgetWithText(LetterKeyItem, "D"));
@@ -52,6 +61,8 @@ void main() {
       ),
     );
     await tester.pump();
+
+    await tester.scrollUntilVisible(find.byType(EnterKeyItem), 100);
 
     // 最初になにもないところでEnterKeyを押しても問題ないことを確認しておく
     await tester.tap(find.byType(EnterKeyItem));
@@ -83,6 +94,8 @@ void main() {
       ),
     );
     await tester.pump();
+
+    await tester.scrollUntilVisible(find.byType(EnterKeyItem), 100);
 
     // 最初になにもないところでDeleteKeyを押しても問題ないことを確認しておく
     await tester.tap(find.byType(DeleteKeyItem));
