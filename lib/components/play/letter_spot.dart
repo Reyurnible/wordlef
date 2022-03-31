@@ -55,12 +55,18 @@ class LetterSpot extends StatelessWidget {
     switch (spotResult) {
       case SpotResult.unknown:
         return const TextStyle(
-            color: Colors.black, fontSize: 24, fontWeight: FontWeight.w800);
+          color: Colors.black,
+          fontSize: 28,
+          fontWeight: FontWeight.w900,
+        );
       case SpotResult.correctSpot:
       case SpotResult.wrongSpot:
       case SpotResult.notInWord:
         return const TextStyle(
-            color: Colors.white, fontSize: 24, fontWeight: FontWeight.w800);
+          color: Colors.white,
+          fontSize: 28,
+          fontWeight: FontWeight.w900,
+        );
     }
   }
 }
