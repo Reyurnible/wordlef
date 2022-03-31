@@ -1,6 +1,7 @@
 import 'dart:math';
 
 import 'package:flutter/foundation.dart';
+import 'package:json_annotation/json_annotation.dart';
 
 import 'spot_result.dart';
 import 'game_board.dart';
@@ -8,6 +9,9 @@ import 'game_status.dart';
 import 'letter.dart';
 import 'word.dart';
 
+part 'game.g.dart';
+
+@JsonSerializable()
 class Game {
   Game(this.wordList) {
     checkUpperWordSet = wordList.map((element) => element.word.toUpperCase()).toSet();
@@ -19,6 +23,10 @@ class Game {
   List<Letter> answer = [];
   GameBoard board = GameBoard();
   GameStatus status = GameStatus.loading;
+
+  factory Game.fromJson(Map<String, dynamic> json) => _$GameFromJson(json);
+
+  Map<String, dynamic> toJson() => _$GameToJson(this);
 
   void start() {
     final Word answerWord = wordList.random();

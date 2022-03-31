@@ -2,7 +2,7 @@
 
 Wordle Flutter project
 
-## WHATS
+## What
 
 | Mobile | Web |
 |:-------:|:----:|
@@ -25,4 +25,12 @@ Wordle Flutter project
 
 ```
 $flutter analyze
+```
+
+### Fix json annotation model
+
+```
+$flutter packages pub run build_runner build
+or
+$flutter packages pub run build_runner watch
 ```

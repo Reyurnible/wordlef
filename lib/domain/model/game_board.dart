@@ -1,15 +1,25 @@
 import 'package:flutter/foundation.dart';
+import 'package:json_annotation/json_annotation.dart';
 
 import 'letter.dart';
 
+part 'game_board.g.dart';
+
+@JsonSerializable()
 class GameBoard {
   static const int maxWordLength = 5;
   static const int maxLineLength = 6;
+
+  GameBoard();
 
   int _currentLine = 0;
 
   final List<List<Letter>> board =
   List<List<Letter>>.generate(maxLineLength, (int index) => []);
+
+  factory GameBoard.fromJson(Map<String, dynamic> json) => _$GameBoardFromJson(json);
+
+  Map<String, dynamic> toJson() => _$GameBoardToJson(this);
 
   bool addLetter(Letter letter) {
     if (checkCurrentLineFilled()) {
