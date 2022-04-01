@@ -39,7 +39,8 @@ class Game {
     debugPrint("======RESTORE GAME======");
     debugPrint("Status: ${state.status}");
     debugPrint("Answer: ${state.answer}");
-    debugPrint("Board: ${state.board}");
+    debugPrint("Board: ${state.board.currentLine}");
+    debugPrint("Board: ${state.board.board}");
   }
 
   bool onPressedLetter(Letter letter) {

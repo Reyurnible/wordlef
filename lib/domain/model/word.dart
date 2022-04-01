@@ -18,7 +18,7 @@ class Word {
 
   List<Letter> get letterList {
     assert(word.length == 5);
-    return word.toUpperCase().split('').map((e) => LetterExt.valueOf(e)).toList();
+    return ListLetterExt.valueOf(word.toUpperCase());
   }
 }
 

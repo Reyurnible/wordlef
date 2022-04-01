@@ -14,7 +14,6 @@ class GameSavedState {
 
   Map<String, dynamic> toJson() => _$GameSavedStateToJson(this);
 
-
   GameSavedState({
     required this.answer,
     required this.board,
