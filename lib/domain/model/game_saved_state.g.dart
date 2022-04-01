@@ -1,28 +1,22 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of 'game.dart';
+part of 'game_saved_state.dart';
 
 // **************************************************************************
 // JsonSerializableGenerator
 // **************************************************************************
 
-Game _$GameFromJson(Map<String, dynamic> json) => Game(
-      (json['wordList'] as List<dynamic>)
-          .map((e) => Word.fromJson(e as Map<String, dynamic>))
-          .toList(),
-    )
-      ..checkUpperWordSet = (json['checkUpperWordSet'] as List<dynamic>)
-          .map((e) => e as String)
-          .toSet()
-      ..answer = (json['answer'] as List<dynamic>)
+GameSavedState _$GameSavedStateFromJson(Map<String, dynamic> json) =>
+    GameSavedState(
+      answer: (json['answer'] as List<dynamic>)
           .map((e) => $enumDecode(_$LetterEnumMap, e))
-          .toList()
-      ..board = GameBoard.fromJson(json['board'] as Map<String, dynamic>)
-      ..status = $enumDecode(_$GameStatusEnumMap, json['status']);
+          .toList(),
+      board: GameBoard.fromJson(json['board'] as Map<String, dynamic>),
+      status: $enumDecode(_$GameStatusEnumMap, json['status']),
+    );
 
-Map<String, dynamic> _$GameToJson(Game instance) => <String, dynamic>{
-      'wordList': instance.wordList,
-      'checkUpperWordSet': instance.checkUpperWordSet.toList(),
+Map<String, dynamic> _$GameSavedStateToJson(GameSavedState instance) =>
+    <String, dynamic>{
       'answer': instance.answer.map((e) => _$LetterEnumMap[e]).toList(),
       'board': instance.board,
       'status': _$GameStatusEnumMap[instance.status],

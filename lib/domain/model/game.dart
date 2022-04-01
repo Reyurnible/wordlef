@@ -1,7 +1,7 @@
 import 'dart:math';
 
 import 'package:flutter/foundation.dart';
-import 'package:json_annotation/json_annotation.dart';
+import 'package:wordlef/domain/model/game_saved_state.dart';
 
 import 'spot_result.dart';
 import 'game_board.dart';
@@ -9,9 +9,6 @@ import 'game_status.dart';
 import 'letter.dart';
 import 'word.dart';
 
-part 'game.g.dart';
-
-@JsonSerializable()
 class Game {
   Game(this.wordList) {
     checkUpperWordSet = wordList.map((element) => element.word.toUpperCase()).toSet();
@@ -24,10 +21,6 @@ class Game {
   GameBoard board = GameBoard();
   GameStatus status = GameStatus.loading;
 
-  factory Game.fromJson(Map<String, dynamic> json) => _$GameFromJson(json);
-
-  Map<String, dynamic> toJson() => _$GameToJson(this);
-
   void start() {
     final Word answerWord = wordList.random();
     answer = answerWord.letterList;
@@ -36,6 +29,17 @@ class Game {
 
     debugPrint("======START GAME======");
     debugPrint("Answer: ${answerWord.word}");
+  }
+
+  void restoreState(GameSavedState state) {
+    answer = state.answer;
+    board = state.board;
+    status = state.status;
+
+    debugPrint("======RESTORE GAME======");
+    debugPrint("Status: ${state.status}");
+    debugPrint("Answer: ${state.answer}");
+    debugPrint("Board: ${state.board}");
   }
 
   bool onPressedLetter(Letter letter) {
