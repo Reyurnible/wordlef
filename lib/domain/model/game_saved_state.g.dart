@@ -52,7 +52,6 @@ const _$LetterEnumMap = {
 };
 
 const _$GameStatusEnumMap = {
-  GameStatus.loading: 'loading',
   GameStatus.playing: 'playing',
   GameStatus.loosed: 'loosed',
   GameStatus.succeed: 'succeed',

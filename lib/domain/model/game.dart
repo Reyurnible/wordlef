@@ -19,7 +19,7 @@ class Game {
   
   List<Letter> answer = [];
   GameBoard board = GameBoard();
-  GameStatus status = GameStatus.loading;
+  GameStatus status = GameStatus.playing;
 
   void start() {
     final Word answerWord = wordList.random();
@@ -101,9 +101,6 @@ class Game {
   }
   
   Map<Letter, SpotResult> getLetterWithResult() {
-    if (status == GameStatus.loading) {
-      return {};
-    }
     Map<Letter, SpotResult> result = {};
     for (var letter in Letter.values) {
       if (board.containsTakeCurrentLine(letter)) {

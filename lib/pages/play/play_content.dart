@@ -1,11 +1,6 @@
-import 'dart:convert';
-// ignore: avoid_web_libraries_in_flutter
-import 'dart:html';
-
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
-import 'package:universal_platform/universal_platform.dart';
-import 'package:wordlef/domain/model/game_saved_state.dart';
+import 'package:wordlef/domain/repository/game_state_repository.dart';
 
 import '../../components/play/game_board_column.dart';
 import '../../components/play/keyboard.dart';
@@ -17,31 +12,26 @@ class PlayContent extends StatefulWidget {
   const PlayContent(
     this.game, {
     Key? key,
+    required this.gameStateRepository,
   }) : super(key: key);
 
   final Game game;
+  final IGameStateRepository gameStateRepository;
 
   @override
   State<StatefulWidget> createState() {
     return _PlayContentState();
   }
-
 }
 
 class _PlayContentState extends State<PlayContent> {
-  static const _gameStateStorageKey = 'game_state';
 
   @override
   void initState() {
     super.initState();
-    if (UniversalPlatform.isWeb) {
-      // Web Tab event active or inactive handling
-      // https://stackoverflow.com/questions/68367780/flutter-web-how-to-detect-applifecyclestate-changes
-      window.addEventListener('blur', _onWebInactive);
-    }
-    final savedState = _restoreGameState();
+    widget.gameStateRepository.autoSave(() => widget.game);
+    final savedState = widget.gameStateRepository.restore();
     if (savedState != null) {
-      // FIXME GameBoard is not restored.
       widget.game.restoreState(savedState);
       _updateState();
     } else {
@@ -104,7 +94,6 @@ class _PlayContentState extends State<PlayContent> {
           case GameStatus.loosed:
             _showLoosedExceptionToast();
             break;
-          case GameStatus.loading:
           case GameStatus.playing:
             // Not in action.
             break;
@@ -172,28 +161,4 @@ class _PlayContentState extends State<PlayContent> {
     );
   }
 
-  void _onWebInactive(Event event) {
-    _storeGameState();
-  }
-
-  void _storeGameState() {
-    if (!UniversalPlatform.isWeb) {
-      return;
-    }
-    final savedState = GameSavedState.fromGame(widget.game);
-    window.sessionStorage[_gameStateStorageKey] = jsonEncode(savedState.toJson());
-  }
-
-  GameSavedState? _restoreGameState() {
-    if (!UniversalPlatform.isWeb) {
-      return null;
-    }
-    if (window.sessionStorage.containsKey(_gameStateStorageKey) &&
-        window.sessionStorage[_gameStateStorageKey] != null) {
-      final gameJsonMap = jsonDecode(window.sessionStorage[_gameStateStorageKey]!);
-      return GameSavedState.fromJson(gameJsonMap);
-    } else {
-      return null;
-    }
-  }
 }

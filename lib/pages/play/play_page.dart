@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:wordlef/domain/model/game.dart';
 import 'package:wordlef/domain/model/word.dart';
+import 'package:wordlef/domain/repository/game_state_repository.dart';
 import 'package:wordlef/domain/repository/word_repository.dart';
 import 'package:wordlef/pages/play/play_content.dart';
 
@@ -21,6 +22,8 @@ class PlayPage extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final AsyncValue<Game> game = ref.watch(gameProvider);
+    final IGameStateRepository gameStateRepository =
+        ref.read(gameStateRepositoryProvider);
     return Scaffold(
         appBar: AppBar(
           title: const Text(
@@ -38,7 +41,10 @@ class PlayPage extends ConsumerWidget {
           loading: () => const CircularProgressIndicator(),
           error: (err, stack) => Text('Error: $err'),
           data: (game) {
-            return PlayContent(game);
+            return PlayContent(
+              game,
+              gameStateRepository: gameStateRepository,
+            );
           },
         ));
   }
