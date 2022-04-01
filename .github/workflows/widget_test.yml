@@ -26,4 +26,4 @@ jobs:
       - name: flutter analyze
         run: flutter analyze
       - name: flutter widget test
-        run: flutter test test/widget_test.dart --platform chrome
+        run: flutter test test/widget_test.dart
