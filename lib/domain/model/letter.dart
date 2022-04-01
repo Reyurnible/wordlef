@@ -42,4 +42,14 @@ extension ListLetterExt on List<Letter> {
   String get joinedValue {
     return map((e) => e.value).join();
   }
+
+  static List<Letter> valueOf(String letterList) {
+    if (letterList.isEmpty) {
+      return [];
+    }
+    return letterList
+        .split('')
+        .map((e) => LetterExt.valueOf(e))
+        .toList();
+  }
 }

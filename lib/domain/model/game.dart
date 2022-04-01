@@ -1,6 +1,7 @@
 import 'dart:math';
 
 import 'package:flutter/foundation.dart';
+import 'package:wordlef/domain/model/game_saved_state.dart';
 
 import 'spot_result.dart';
 import 'game_board.dart';
@@ -18,7 +19,7 @@ class Game {
   
   List<Letter> answer = [];
   GameBoard board = GameBoard();
-  GameStatus status = GameStatus.loading;
+  GameStatus status = GameStatus.playing;
 
   void start() {
     final Word answerWord = wordList.random();
@@ -28,6 +29,18 @@ class Game {
 
     debugPrint("======START GAME======");
     debugPrint("Answer: ${answerWord.word}");
+  }
+
+  void restoreState(GameSavedState state) {
+    answer = state.answer;
+    board = state.board;
+    status = state.status;
+
+    debugPrint("======RESTORE GAME======");
+    debugPrint("Status: ${state.status}");
+    debugPrint("Answer: ${state.answer}");
+    debugPrint("Board: ${state.board.currentLine}");
+    debugPrint("Board: ${state.board.board}");
   }
 
   bool onPressedLetter(Letter letter) {
@@ -88,9 +101,6 @@ class Game {
   }
   
   Map<Letter, SpotResult> getLetterWithResult() {
-    if (status == GameStatus.loading) {
-      return {};
-    }
     Map<Letter, SpotResult> result = {};
     for (var letter in Letter.values) {
       if (board.containsTakeCurrentLine(letter)) {

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
+import 'package:wordlef/domain/repository/game_state_repository.dart';
 
 import '../../components/play/game_board_column.dart';
 import '../../components/play/keyboard.dart';
@@ -11,9 +12,11 @@ class PlayContent extends StatefulWidget {
   const PlayContent(
     this.game, {
     Key? key,
+    required this.gameStateRepository,
   }) : super(key: key);
 
   final Game game;
+  final IGameStateRepository gameStateRepository;
 
   @override
   State<StatefulWidget> createState() {
@@ -22,10 +25,18 @@ class PlayContent extends StatefulWidget {
 }
 
 class _PlayContentState extends State<PlayContent> {
+
   @override
   void initState() {
     super.initState();
-    widget.game.start();
+    widget.gameStateRepository.autoSave(() => widget.game);
+    final savedState = widget.gameStateRepository.restore();
+    if (savedState != null) {
+      widget.game.restoreState(savedState);
+      _updateState();
+    } else {
+      widget.game.start();
+    }
   }
 
   @override
@@ -83,7 +94,6 @@ class _PlayContentState extends State<PlayContent> {
           case GameStatus.loosed:
             _showLoosedExceptionToast();
             break;
-          case GameStatus.loading:
           case GameStatus.playing:
             // Not in action.
             break;
@@ -150,4 +160,5 @@ class _PlayContentState extends State<PlayContent> {
       textColor: Colors.white,
     );
   }
+
 }
