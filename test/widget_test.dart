@@ -6,9 +6,11 @@ import 'package:wordlef/components/play/keyboard/delete_key_item.dart';
 import 'package:wordlef/components/play/keyboard/enter_key_item.dart';
 import 'package:wordlef/components/play/keyboard/letter_key_item.dart';
 import 'package:wordlef/components/play/letter_spot.dart';
+import 'package:wordlef/domain/repository/game_state_repository.dart';
 import 'package:wordlef/domain/repository/word_repository.dart';
 import 'package:wordlef/main.dart';
 
+import 'mock/mock_game_state_repository.dart';
 import 'mock/mock_word_repository.dart';
 
 /// Widget test tips: https://gist.github.com/Esgrima/c0d4bff4b0d3909daf8994410cd659ce
@@ -24,7 +26,8 @@ void main() {
     await tester.pumpWidget(
       ProviderScope(
         overrides: [
-          wordRepositoryProvider.overrideWithValue(MockWordRepository())
+          wordRepositoryProvider.overrideWithValue(MockWordRepository()),
+          gameStateRepositoryProvider.overrideWithValue(MockGameStateRepository()),
         ],
         child: const MyApp(),
       ),
@@ -55,7 +58,8 @@ void main() {
     await tester.pumpWidget(
       ProviderScope(
         overrides: [
-          wordRepositoryProvider.overrideWithValue(MockWordRepository())
+          wordRepositoryProvider.overrideWithValue(MockWordRepository()),
+          gameStateRepositoryProvider.overrideWithValue(MockGameStateRepository()),
         ],
         child: const MyApp(),
       ),
@@ -88,7 +92,8 @@ void main() {
     await tester.pumpWidget(
       ProviderScope(
         overrides: [
-          wordRepositoryProvider.overrideWithValue(MockWordRepository())
+          wordRepositoryProvider.overrideWithValue(MockWordRepository()),
+          gameStateRepositoryProvider.overrideWithValue(MockGameStateRepository()),
         ],
         child: const MyApp(),
       ),
