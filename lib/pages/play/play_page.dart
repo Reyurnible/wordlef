@@ -9,6 +9,7 @@ final gameProvider = FutureProvider((ref) async {
   // Repository インスタンスを取得する
   final repository = ref.watch(wordRepositoryProvider);
   final List<Word> wordList = await repository.fetchWordList();
+
   return Game(wordList);
 });
 

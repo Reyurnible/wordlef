@@ -1,5 +1,11 @@
+import 'dart:convert';
+import 'dart:html';
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
+import 'package:universal_platform/universal_platform.dart';
+import 'package:wordlef/domain/model/game_saved_state.dart';
 
 import '../../components/play/game_board_column.dart';
 import '../../components/play/keyboard.dart';
@@ -19,13 +25,28 @@ class PlayContent extends StatefulWidget {
   State<StatefulWidget> createState() {
     return _PlayContentState();
   }
+
 }
 
 class _PlayContentState extends State<PlayContent> {
+  static const _gameStateStorageKey = 'game_state';
+
   @override
   void initState() {
     super.initState();
-    widget.game.start();
+    if (UniversalPlatform.isWeb) {
+      // Web Tab event active or inactive handling
+      // https://stackoverflow.com/questions/68367780/flutter-web-how-to-detect-applifecyclestate-changes
+      window.addEventListener('blur', _onWebInactive);
+    }
+    final savedState = _restoreGameState();
+    if (savedState != null) {
+      // FIXME GameBoard is not restored.
+      widget.game.restoreState(savedState);
+      _updateState();
+    } else {
+      widget.game.start();
+    }
   }
 
   @override
@@ -149,5 +170,30 @@ class _PlayContentState extends State<PlayContent> {
       fontSize: 16.0,
       textColor: Colors.white,
     );
+  }
+
+  void _onWebInactive(Event event) {
+    _storeGameState();
+  }
+
+  void _storeGameState() {
+    if (!UniversalPlatform.isWeb) {
+      return;
+    }
+    final savedState = GameSavedState.fromGame(widget.game);
+    window.sessionStorage[_gameStateStorageKey] = jsonEncode(savedState.toJson());
+  }
+
+  GameSavedState? _restoreGameState() {
+    if (!UniversalPlatform.isWeb) {
+      return null;
+    }
+    if (window.sessionStorage.containsKey(_gameStateStorageKey) &&
+        window.sessionStorage[_gameStateStorageKey] != null) {
+      final gameJsonMap = jsonDecode(window.sessionStorage[_gameStateStorageKey]!);
+      return GameSavedState.fromJson(gameJsonMap);
+    } else {
+      return null;
+    }
   }
 }
