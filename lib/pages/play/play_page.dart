@@ -22,16 +22,24 @@ class PlayPage extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final AsyncValue<Game> game = ref.watch(gameProvider);
     return Scaffold(
-      appBar: AppBar(
-        title: const Text("Wordlef"),
-      ),
-      body: game.when(
-        loading: () => const CircularProgressIndicator(),
-        error: (err, stack) => Text('Error: $err'),
-        data: (game) {
-          return PlayContent(game);
-        },
-    ));
+        appBar: AppBar(
+          title: const Text(
+            "WORDLEF",
+            style: TextStyle(
+              color: Colors.black,
+              fontWeight: FontWeight.w900,
+              fontSize: 24,
+              letterSpacing: 4,
+            ),
+          ),
+          backgroundColor: Colors.white,
+        ),
+        body: game.when(
+          loading: () => const CircularProgressIndicator(),
+          error: (err, stack) => Text('Error: $err'),
+          data: (game) {
+            return PlayContent(game);
+          },
+        ));
   }
 }
-
