@@ -53,14 +53,14 @@ class _PlayContentState extends State<PlayContent> {
               answer: widget.game.answer,
               isGameEnd: widget.game.isEnded(),
             ),
-            const SizedBox(height: 16),
+            const SizedBox(height: 8),
             TextButton.icon(
               icon: const Icon(Icons.refresh),
               label: const Text("RESTART",
                   style: TextStyle(fontSize: 16, fontWeight: FontWeight.w600)),
               onPressed: _onRestartPressed,
             ),
-            const SizedBox(height: 48),
+            const SizedBox(height: 24),
             // Keyboard
             Keyboard(
               letterWithResult: widget.game.getLetterWithResult(),

@@ -16,8 +16,8 @@ class LetterSpot extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-        width: 64,
-        height: 64,
+        width: 60,
+        height: 60,
         margin: const EdgeInsets.all(2),
         decoration: _inflateBoxDecoration(spotResult),
         child: Center(

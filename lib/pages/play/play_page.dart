@@ -38,8 +38,8 @@ class PlayPage extends ConsumerWidget {
           backgroundColor: Colors.white,
         ),
         body: game.when(
-          loading: () => const CircularProgressIndicator(),
-          error: (err, stack) => Text('Error: $err'),
+          loading: () => const Center(child: CircularProgressIndicator()),
+          error: (err, stack) => Center(child: Text('Error: $err')),
           data: (game) {
             return PlayContent(
               game,
