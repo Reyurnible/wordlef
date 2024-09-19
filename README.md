@@ -1,6 +1,11 @@
 # Wordlef
 
-Wordle Flutter project
+Wordle copy Flutter project
+
+## Site
+
+Playing here:
+https://wordlef.web.app/
 
 ## What
 
