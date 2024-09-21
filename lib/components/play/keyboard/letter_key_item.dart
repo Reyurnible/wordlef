@@ -24,8 +24,8 @@ class LetterKeyItem extends StatelessWidget {
               child: Text(letter.value,
                   style: _inflateSpotResultTextStyle(spotResult)),
               style: ButtonStyle(
-                backgroundColor: MaterialStateProperty.all(spotResult.color),
-                padding: MaterialStateProperty.all(EdgeInsets.zero),
+                backgroundColor: WidgetStateProperty.all(spotResult.color),
+                padding: WidgetStateProperty.all(EdgeInsets.zero),
               ),
               onPressed: () {
                 onPressed.call(letter);

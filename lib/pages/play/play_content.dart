@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:wordlef/domain/repository/game_state_repository.dart';
 
@@ -25,7 +26,6 @@ class PlayContent extends StatefulWidget {
 }
 
 class _PlayContentState extends State<PlayContent> {
-
   @override
   void initState() {
     super.initState();
@@ -37,6 +37,7 @@ class _PlayContentState extends State<PlayContent> {
     } else {
       widget.game.start();
     }
+    HardwareKeyboard.instance.addHandler(_hardwareKeyHandler);
   }
 
   @override
@@ -72,6 +73,24 @@ class _PlayContentState extends State<PlayContent> {
         ),
       ),
     );
+  }
+
+  bool _hardwareKeyHandler(event) {
+    if (event is KeyDownEvent) {
+      if (event.logicalKey.keyId >= LogicalKeyboardKey.keyA.keyId &&
+          event.logicalKey.keyId <= LogicalKeyboardKey.keyZ.keyId) {
+        final letter = Letter.values.byName(event.logicalKey.keyLabel);
+        _onLetterKeyPressed(letter);
+        return true;
+      } else if (event.logicalKey == LogicalKeyboardKey.enter) {
+        _onEnterKeyPressed();
+        return true;
+      } else if (event.logicalKey == LogicalKeyboardKey.backspace) {
+        _onDeleteKeyPressed();
+        return true;
+      }
+    }
+    return false;
   }
 
   void _onLetterKeyPressed(Letter letter) {
@@ -160,5 +179,4 @@ class _PlayContentState extends State<PlayContent> {
       textColor: Colors.white,
     );
   }
-
 }

@@ -19,9 +19,8 @@ class EnterKeyItem extends StatelessWidget {
                     fontSize: 12,
                     fontWeight: FontWeight.w600)),
             style: ButtonStyle(
-              backgroundColor:
-                  MaterialStateProperty.all(const Color(0xFFD3D6DA)),
-              padding: MaterialStateProperty.all(EdgeInsets.zero),
+              backgroundColor: WidgetStateProperty.all(const Color(0xFFD3D6DA)),
+              padding: WidgetStateProperty.all(EdgeInsets.zero),
             ),
             onPressed: () {
               onPressed.call();
